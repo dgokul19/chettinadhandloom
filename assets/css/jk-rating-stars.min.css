@@ -1,0 +1,19 @@
+.jk-rating-stars-container .button {
+    cursor: pointer
+    padding:0px 2px;
+}
+.jk-rating-stars-container .button .tiStar {
+    font-size: 20px;
+    font-family:  FontAwesome;
+    font-style : normal;
+}
+.jk-rating-stars-container .star-button.star-on .tiStar:after{
+	content: "\f005";
+	display: block;
+	color: #fff700;
+}
+.jk-rating-stars-container .star-button.star-off .tiStar:after{
+	content: "\f005";
+	display: block;
+	color: #fff;
+}

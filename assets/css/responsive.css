@@ -1,0 +1,28 @@
+@media(max-width: 767px){
+	button.navbar-toggle{
+		color: #020202;
+	    z-index: 9;
+	    padding: 10px;
+	    background: #fff;
+	}
+	button.sideTooge{
+		 background: #fff;
+		 border-radius:4px;
+		 z-index: 9;
+	}
+	button.sideTooge .fa-barr{
+		 background: #222;
+	}
+	.collapse.navbar-collapse{
+		width: 100%;
+		background-color: #fff;	
+		position: absolute;
+		top: 0px;	
+	}
+	ul.headUl li{
+		display: block;
+	}
+	ul.headUl li a{
+		color: #222;
+	}
+}

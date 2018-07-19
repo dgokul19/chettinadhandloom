@@ -1,0 +1,131 @@
+<header class="origMenu detailsPage">
+	<div class="container">
+		<button class="sideTooge layout-column layout-align-center-center" menu-toggle>
+			<i class="fa-barr"></i>
+			<i class="fa-barr"></i>
+			<i class="fa-barr"></i>
+      	</button>
+		 
+		<ul class="list-unstyled userActivity layout-row">
+	    	<li><a href="#/login" class="fa fa-user-o"></a></li>
+	    	<li><a class="fa fa-shopping-bag"></a></li>
+	    </ul>
+	    
+	    <div class="collapse navbar-collapse" id="myNavbar">
+	      	<ul class="headUl list-unstyled" layout="row" layout-xs="column" layout-align="center center">
+		       <li><a href="#/journey">Our journey</a></li>
+              <li><a href="#/places">Our place</a></li> 
+              <li><a href="#/services">What we do</a></li> 
+              <li class="logoLi dets" hide-xs>
+                <a href="#/">
+                  <img src="assets/images/logo_1.png" alt=""/>
+                </a>
+              </li> 
+              <li><a href="#/loomspace">Loom space</a></li>
+              <li><a href="#/customerTalks">Customer talks</a></li> 
+              <li><a href="#/reachus">Meet us</a></li> 
+	      	</ul>
+	    </div>
+	</div>
+</header>
+
+<div class="logiPage">
+	<div class="container">
+		<div class="formBoxx">
+			<form name="logForm" class="gen_ogin relative" ng-hide="signSoc" ng-cloak>
+	        	<md-input-container class="inputBoxed">
+	        		<label>Email or Mobile no</label>
+	        		<input type="text" ng-model="userEmail" required>
+	        		<i class="ti-email iconLoginPage"></i>
+	        	</md-input-container>
+
+	        	<md-input-container class="inputBoxed marginTop20">
+	        		<label>Password</label>
+	        		<input type="password" ng-model="userPwd" required>
+	        		<i class="ti-unlock iconLoginPage"></i>
+	        	</md-input-container>
+
+				<md-button class="loginBn" ng-disabled="logForm.$invalid" ng-click="logiFunc()">login</md-button>
+				<span class="layout-row">
+		        	<a class="text-danger txtCenter displayMe">forgot password</a>	<span class="flex"></span> 
+		        	<a class="text-danger txtCenter displayMe" ng-click="signSoc = !signSoc">Create account</a>	
+		    	</span>
+	        </form>
+
+	        <form ng-show="signSoc" class="gen_ogin relative" name="signUpform" ng-cloak>
+	        	<span class="goBack ti-angle-left" ng-click="signSoc = false"></span>
+	        	<input type="hidden" ng-model="user.user_id">
+	        	<md-radio-group class="layout-row" ng-model="user.userType" required>
+					<md-radio-button value="merchant">Merchant</md-radio-button>
+			      	<md-radio-button value="customer">Customer </md-radio-button>
+			    </md-radio-group>
+
+	        	<md-input-container class="inputBoxed marginTop20">
+	        		<label>First Name</label>
+	        		<input type="text" ng-model="user.first_name" required>
+	        		<i class="ti-user iconLoginPage"></i>
+	        	</md-input-container>
+
+	        	<md-input-container class="inputBoxed marginTop20">
+	        		<label>Last Name</label>
+	        		<input type="text" ng-model="user.last_name" required>
+	        		<i class="ti-user iconLoginPage"></i>
+	        	</md-input-container>
+
+	        	<md-input-container class="inputBoxed marginTop20">
+	        		<label>Email</label>
+	        		<input type="email" ng-model="user.email" required>
+	        		<i class="ti-email iconLoginPage"></i>
+	        	</md-input-container>
+
+	        	<md-input-container class="inputBoxed marginTop20">
+	        		<label>Phone</label>
+	        		<input type="text" ng-model="user.mobile_no" required>
+	        		<i class="ti-mobile iconLoginPage"></i>
+	        	</md-input-container>
+
+				<md-input-container class="inputBoxed marginTop20">
+	        		<label>Password</label>
+	        		<input type="password" ng-model="user.userPwd" required>
+	        		<i class="ti-unlock iconLoginPage"></i>
+	        	</md-input-container>
+
+	        	<md-input-container class="inputBoxed marginTop20">
+	        		<label>Retype Password</label>
+	        		<input type="password" ng-model="user.userrePwd" ng-pattern="user.userPwd" required>
+	        		<i class="ti-unlock iconLoginPage"></i>
+	        	</md-input-container>
+
+	        	<md-switch ng-model="termsAccept" aria-label="Switch 1">
+				    I agree the terms & conditions.
+				</md-switch>
+
+				<md-button type="submit" class="loginBn" ng-disabled="signUpform.$invalid" ng-click="regisForm()">register now</md-button>
+	        </form>
+      	</div>
+	</div>
+</div>
+
+<div footer-template></div>
+
+  <!-- OTP POPUP-->
+
+  	<div id="otpPop_u" class="modal fade" role="dialog">
+	  <div class="modal-dialog">		    
+	    <div class="modal-content md-whiteframe-2dp">
+	      <div class="modal-header padding0">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title txtCenter">Please verify your mobile number</h4>	        
+	      </div>
+	      <div class="modal-body">
+	      	<md-input-container class="inputBoxed otpS">
+	        	<label>Enter your OTP number</label>
+	        	<input type="text" ng-model="otpNumb" maxlength="8">
+	        	<i class="fa fa-send" ng-click="confirmOtP()"></i>
+	        </md-input-container>
+	        <a ng-click="reSendOtp()" href="">resend OTP</a>
+	      </div>
+	    </div>
+
+	  </div>
+	</div>	

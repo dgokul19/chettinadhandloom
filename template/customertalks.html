@@ -1,0 +1,76 @@
+<div class="loader" ng-if="loader"><img src="assets/images/giphy.gif"/></div>
+<div class="bannProd">
+	<header class="origMenu subpage">
+		<div class="container">
+			<button class="sideTooge layout-column layout-align-center-center" menu-toggle>
+				<i class="fa-barr"></i>
+				<i class="fa-barr"></i>
+				<i class="fa-barr"></i>
+	      	</button>
+			 
+			<ul class="list-unstyled userActivity layout-row">
+		    	<li><a class="fa fa-user-o"></a></li>
+		    	<li><a class="fa fa-shopping-bag"></a></li>
+		    </ul>
+		    
+		    <div class="collapse navbar-collapse" id="myNavbar">
+		      	<ul class="headUl list-unstyled" layout="row" layout-xs="column" layout-align="center center">
+		        	<li><a href="#/journey">Our journey</a></li>
+	              	<li><a href="#/places">Our place</a></li> 
+	             	<li><a href="#/services">What we do</a></li> 
+	              	<li class="logoLi dets" hide-xs>
+	                    <a href="#/">
+	                      <img src="assets/images/logo.png" alt=""/>
+	                    </a>
+	              	</li> 
+	              	<li><a href="#/loomspace">Loom space</a></li>
+	              	<li><a href="#/customerTalks">Customer talks</a></li> 
+	              	<li><a href="#/reachus">Meet us</a></li> 
+		      	</ul>
+		    </div>
+		</div>
+	</header>
+</div>
+
+		<div class="pageCrumbs" layout="row" layout-align="center center">
+			<ul class="margin0 list-unstyled layout-row txtCenter">
+				<li><a href="">Home</a></li>
+				<li><a class="active" href="">Customer talks</a></li>
+			</ul>
+		</div>
+
+
+		<div class="custmTalkPage">
+			<div class="container">
+				<ul class="dynamic-grid" angular-grid="reviewerData" ag-grid-width="320" ag-gutter-size="20" ag-id="gallery" ag-refresh-on-img-load="false" >
+					<li class="testmBx grid" ng-repeat="data in reviewerData | filter : {review_text : ''}">
+						<div class="relative testiiiB md-whiteframe-2dp">
+							<p>
+								<span ng-hide="data.review_text">No reviews found</span>
+								<span ng-show="data.review_text">{{data.review_text}}</span>
+								<i class="fa fa-quote-right lastQuot"></i>
+							</p>
+							<div class="profSta_Ar relative">
+								<span class="creatdat">{{data.time | date}}</span>
+								<div class="testProfPic">
+									<div class="img_holdUp">
+										<img ng-src="{{data.reviewer.picture.data.url}}" alt="{{data.name}}">
+									</div>
+								</div>
+								<div class="clientDets">
+									<h4>{{data.name}} <md-tooltip>{{data.name}}</md-tooltip></h4>
+									<jk-rating-stars class="ratingDiiv" rating="data.rating" read-only="true" ></jk-rating-stars>
+								</div>
+							</div>
+							<div class="clearfix"></div>
+						</div>						
+					</li>
+				</ul>
+				<!-- <button ng-click="loadMore(revWsLoad.next)">Loadmore</button> -->
+			</div>
+		</div>	
+
+
+
+
+<div footer-template></div>

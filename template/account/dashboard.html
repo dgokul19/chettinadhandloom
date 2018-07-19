@@ -1,0 +1,102 @@
+<div class="dashboard-home">
+    <div class="col-sm-2 account_nav relative">
+        <div class="row margin0 account-nav_in">
+            <div class="logo-bx">
+                <img src="assets/images/logo_1.png"/>
+            </div>
+            <div class="account_nav_menu">
+                <ul class="list-unstyled">
+                    <li><a href=""><i class="fa fa-shopping-bag"></i> Orders</a></li>
+                    <li><a href=""><i class="fa fa-address-card"></i> Address</a></li>
+                    <li><a href=""><i class="fa fa-credit-card"></i> Payments</a></li>
+                    <li class="active"><a href=""><i class="fa fa-user"></i> Profile</a></li>
+                    <li><a href=""><i class="fa fa-gift"></i> Offers</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-10 account_board padding0">
+        <div class="board_head">
+            <ul class="list-unstyled">
+                <li class="profImg">
+                    <img src="assets/images/client.jpg"/>
+                </li>
+                <li class="relative">
+                   <span ng-click="drpBoardMenu = !drpBoardMenu">Gokulan Dhatchinamoorthy <i class="fa fa-angle-down"></i></span>
+                   <div class="dropdown-board" ng-show="drpBoardMenu">
+                        <ul class="list-unstyled margin0">
+                            <li>My Profile</li>
+                            <li>Logout</li>
+                        </ul>
+                   </div>
+                </li>
+            </ul>
+        </div>
+        <div class="acc_board_title">
+            <!-- <span>Welcome to our</span> -->
+            <h1>Profile</h1>
+            <div class="clearfix"></div>           
+        </div>
+        <div class="acc_board_details">
+            <div class="acc_prof_row">
+                <h4>Personal Information 
+                        <span class="cursor" ng-show="!acc_disabled" ng-click="acc_disabled = !acc_disabled">Edit</span>
+                        <span class="cursor" ng-show="acc_disabled" ng-click="acc_disabled = !acc_disabled">Cancel</span>
+                </h4>
+                <div class="acc_form">
+                    <div class="col-sm-4 padding0">
+                        <md-input-container class="inputBoxed" ng-class="{'disabled' : !acc_disabled}">
+                            <label ng-show="acc_disabled">First name</label>
+                            <input type="text" ng-model="account.firstname" ng-disabled="!acc_disabled">
+                        </md-input-container>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <md-input-container class="inputBoxed" ng-class="{'disabled' : !acc_disabled}">
+                            <label ng-show="acc_disabled">Last name</label>
+                            <input type="text" ng-model="account.lastname" ng-disabled="!acc_disabled">
+                        </md-input-container>
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <div class="acc_form_sub">
+                        <h5>Your gender</h5>
+                        <md-radio-group class="layout-row" ng-model="data.group1" ng-disabled="!acc_disabled" ng-class="{'disabled' : !acc_disabled}">
+                            <md-radio-button value="men">Male</md-radio-button>
+                            <md-radio-button class="marginLeft10" value="women">Female</md-radio-button>
+                        </md-radio-group>
+                    </div>
+
+                </div>
+            </div>
+            
+            <div class="acc_prof_row">
+                <h4>Email Address 
+                    <span class="cursor" ng-click="changePassword()">Change Password</span>
+                </h4>
+                <div class="acc_form">
+                        <div class="col-sm-4 padding0">
+                            <md-input-container class="inputBoxed" ng-class="{'disabled' : !acc_disabled}">
+                                <label ng-show="acc_disabled">Email</label>
+                                <input type="text" ng-model="account.email" ng-disabled="!acc_disabled">
+                            </md-input-container>
+                        </div>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+            
+            <div class="acc_prof_row">
+                    <h4>Mobile Number </h4>
+                    <div class="acc_form">
+                            <div class="col-sm-4 padding0">
+                                <md-input-container class="inputBoxed" ng-class="{'disabled' : !acc_disabled}">
+                                    <label ng-show="acc_disabled">Phone</label>
+                                    <input type="text" ng-model="account.phone" ng-disabled="!acc_disabled">
+                                </md-input-container>
+                            </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>

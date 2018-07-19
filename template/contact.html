@@ -1,0 +1,113 @@
+
+		<div class="bannProd">
+		  	<header class="origMenu subpage">
+				<div class="container">
+					<button class="sideTooge layout-column layout-align-center-center"  menu-toggle>
+						<i class="fa-barr"></i>
+						<i class="fa-barr"></i>
+						<i class="fa-barr"></i>
+			      	</button>
+					 
+					<ul class="list-unstyled userActivity layout-row">
+				    	<li><a href="#/login" class="fa fa-user-o"></a></li>
+				    	<li><a class="fa fa-shopping-bag"></a></li>
+				    </ul>
+				    
+				    <div class="collapse navbar-collapse" id="myNavbar">
+				      	<ul class="headUl list-unstyled" layout="row" layout-xs="column" layout-align="center center">
+				        	<li><a href="#/journey">Our journey</a></li>
+	                      	<li><a href="#/places">Our place</a></li> 
+	                     	<li><a href="#/services">What we do</a></li> 
+	                      	<li class="logoLi dets" hide-xs>
+		                        <a href="#/">
+		                          <img src="assets/images/logo.png" alt=""/>
+		                        </a>
+	                      	</li> 
+	                      	<li><a href="#/loomspace">Loom space</a></li>
+	                      	<li><a href="#/customerTalks">Customer talks</a></li> 
+	                      	<li><a href="#/reachus">Meet us</a></li> 
+				      	</ul>
+				    </div>
+				</div>
+			</header>
+		</div>
+
+		<div class="pageCrumbs" layout="row" layout-align="center center">
+			<ul class="margin0 list-unstyled layout-row txtCenter">
+				<li><a href="">Home</a></li>
+				<li><a class="active" href="">Contact</a></li>
+			</ul>
+		</div>
+
+		<div class="contPag">
+			<div class="container">
+				<div class="mapDii">
+					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3927.9539961129785!2d78.79439151434369!3d10.102851592780679!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b0067a892934ee1%3A0xe9bba0047e82e220!2sThe+chettinad+handloom!5e0!3m2!1sen!2sin!4v1499534022863" frameborder="0" style="border:0" allowfullscreen></iframe>
+				</div>
+				<div class="clearfix"></div>
+
+				<form name="contacform" class="col-sm-7 formDi layout-column">
+					<h3>Drop us a line</h3>
+					<div class="clearfix"></div>
+
+					<div class="form-group">
+						<label>Name</label>
+						<md-input-container class="inputBoxed">
+							<label></label>
+							<input type="text" name="myName" ng-model="formName" placeholder="Enter your name" required>
+							<i ng-show="contacform.myName.$touched && contacform.myName.$invalid" class="errValidat fa fa-close"></i>
+						</md-input-container>
+					</div>
+					
+					<div class="form-group">
+						<label>Email</label>
+						<md-input-container class="inputBoxed">
+							<label></label>
+							<input type="email" name="myEmail" ng-model="formEmail" placeholder="Enter your email" required>
+							<i ng-show="contacform.myEmail.$touched && contacform.myEmail.$invalid" class="errValidat fa fa-close"></i>
+						</md-input-container>
+					</div>
+
+					<div class="form-group">
+						<label>Phone</label>
+						<md-input-container class="inputBoxed">
+							<label></label>
+							<input type="text" minlength="10" maxlength="10" name="myPhone" ng-model="formPhone" placeholder="Phone number" required>
+							<i ng-show="contacform.myPhone.$touched && contacform.myPhone.$invalid" class="errValidat fa fa-close"></i>
+						</md-input-container>
+					</div>
+
+					<div class="form-group">
+						<label>Your Message</label>
+						<md-input-container class="inputBoxed textarea">
+							<label></label>
+							<textarea ng-model="formMsg" placeholder="Enter your message"></textarea>
+						</md-input-container>
+					</div>
+
+					<md-button ng-disabled="contacform.$invalid" class="margin0 md-primary formButt" ng-click="formSubmit()">REACH US</md-button>
+				</form>
+
+				<div class="col-sm-5 formDi contInfo">
+					<h3>Contact Information</h3>
+					<p>We love to hear from you on our customer service, merchandise, website or any topics you want to share with us. Your comments and suggestions will be appreciated. Please complete the form below.</p>
+					<ul class="list-unstyled liInfo">
+						<li><i class="fa fa-home"></i> 117, Valliammai Nagar, Nethaji street. Karaikudi 630106.</li>
+						<li><i class="fa fa-phone"></i> 094864 47946 / 81227 01839</li>
+						<li><i class="fa fa-envelope"></i> chettinaadhandloom@gmail.com</li>
+						<li><i class="fa fa-clock-o"></i> 24 / 7 hours</li>
+					</ul>
+					<br>
+					<h3>Social Media</h3>
+					<ul class="socMed list-unstyled margin0 layout-row">
+						<li><i class="fa fa-facebook"></i></li>
+						<li><i class="fa fa-twitter"></i></li>
+						<li><i class="fa fa-google-plus"></i></li>
+						<li><i class="fa fa-instagram"></i></li>
+						<li><i class="fa fa-pinterest"></i></li>
+					</ul>
+
+				</div>
+			</div>
+		</div>
+<div footer-template></div>
