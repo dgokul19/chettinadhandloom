@@ -26,3 +26,13 @@
 		color: #222;
 	}
 }
+
+@media(max-width: 600px){
+	.categBo{
+		width: 50%;
+	}
+
+	.categBo .mproductBox{
+		height: 170px;
+	}
+}

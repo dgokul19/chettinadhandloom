@@ -29,14 +29,19 @@ app.config(function($routeProvider,$locationProvider){
 			controller	: 	"contactCtrl"
 		})
 
-		.when("/customerTalks",{
-			templateUrl	: 	"template/customertalks.html",
-			controller	: 	"testiController"
-		})
-
 		.when("/loomspace",{
 			templateUrl	: 	"template/product.html",
 			controller	: 	"prodctHme"
+		})
+
+		.when("/category",{
+			templateUrl	: 	"template/category.html",
+			controller	: 	"categoryController"
+		})
+
+		.when("/details",{
+			templateUrl	: 	"template/details.html",
+			controller	: 	"detailsController"
 		})
 
 		.when("/login",{

@@ -620,7 +620,7 @@ md-input-container.subscrbInp:not(.md-input-invalid).md-input-focused label{
 	margin-top:2em;
 }
 .filtDiv{
-	width:23%;
+	width:100%;
 	height: 40px;
 	float: left;
 	margin-right: 2%;
