@@ -34,6 +34,7 @@ class Products extends CI_Controller
             $product_picture_url = ASSETS."product-images/products/";
             foreach($getCategory->result() as $fetchCategory){
                 $json['category_data'][$i]['category_id'] = $fetchCategory->id;
+                $json['category_data'][$i]['category_code'] = $fetchCategory->c_ref_code;
                 $json['category_data'][$i]['category_name'] = $fetchCategory->category_name;
                 $json['category_data'][$i]['category_name'] = $fetchCategory->category_name;
                 $json['category_data'][$i]['description'] = $fetchCategory->description;
@@ -68,6 +69,76 @@ class Products extends CI_Controller
             $json['msg'] = 'No Active Category';
         }
         echo json_encode($json);
+    }
+
+    public function detailed_view(){
+        $req_obj = file_get_contents("php://input");
+        $req_Arr = json_decode($req_obj,true);
+
+        /*
+        $req_Arr = [
+            'product_id'=>1,
+            'product_code'=>'S1200'
+        ];
+        */
+
+        if(empty($req_Arr)){
+            $json = ['status'=>"failed",'err_code'=>'invalid_request_type','msg'=>"No Inputs"];
+            echo json_encode($json);
+            die;
+        }else{
+            $product_code = $req_Arr['product_code'];
+            $product_id = $req_Arr['product_id'];
+
+            $sql="SELECT A.*,B.c_ref_code,B.category_name,B.description as cat_comments,C.album_code,C.album_name,C.description as album_comments FROM `ch_product_details` as A 
+                    INNER JOIN `ch_product_category` as B on A.category_id=B.id INNER JOIN `ch_product_albums` as C ON A.album_id=C.id
+                    WHERE A.`id`='$product_id' AND A.`product_code`='$product_code'";
+            $get_pd_details = $this->app_model->ExecuteQuery($sql);
+            if($get_pd_details->num_rows() != 0){
+                $fetch = $get_pd_details->row();
+
+                $sql2 = $this->app_model->get_all(PRODUCT_IMAGES,['is_cover_image'=>'1','pdt_p_id'=>$fetch->id])->row();
+                $product_picture_url = ASSETS."product-images/products/";
+                $item_cover_picture = $product_picture_url.$sql2->picture_url;
+
+                $item_gallery = null;$tmp_i=0;
+                $sql3 = $this->app_model->get_all(PRODUCT_IMAGES,['is_cover_image'=>'0','pdt_p_id'=>$fetch->id]);
+                foreach($sql3->result() as $key){
+                    $item_gallery[$tmp_i] = $product_picture_url.$key->picture_url;
+                }
+
+                $json['item_id'] = $fetch->id;
+                $json['item_code'] = $fetch->product_code;
+                $json['item_name'] = $fetch->pdt_name;
+                $json['item_description'] = $fetch->pdt_description;
+                $json['tags'] = $fetch->tags;
+                $json['item_price'] = $fetch->price;
+                $json['item_status'] = ($fetch->status == "available")? TRUE:FALSE;
+
+                $json['item_cover_picture'] = $item_cover_picture;
+                $json['item_gallery'] = $item_gallery;
+                
+                $json['item_category']['category_code'] = $fetch->c_ref_code;
+                $json['item_category']['category_name'] = $fetch->category_name;
+                $json['item_category']['category_description'] = $fetch->cat_comments;
+
+                $json['item_album']['album_code'] = $fetch->album_code;
+                $json['item_album']['album_name'] = $fetch->album_name;
+                $json['item_album']['album_description'] = $fetch->album_comments;
+
+                $json = ['status'=>"success",'err_code'=>NULL,'msg'=>"","data"=>$json];
+                echo json_encode($json);
+
+            }else{
+                $json = ['status'=>"failed",'err_code'=>'no_record','msg'=>"No record found"];
+                echo json_encode($json);
+            }
+        }
+        
+    }
+
+    public function test(){
+        echo strtolower(random_string('nozero',6));
     }
     
 }
