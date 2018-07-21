@@ -1,4 +1,6 @@
-var base_url = 'http://localhost/chettinadhandloom/crm/api/';
+
+var base_url = 'http://'+window.location.hostname + window.location.pathname + 'crm/api/';
+
 app.factory('productCartApi',function($http){
 	return{
 		api : function (){
