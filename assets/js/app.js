@@ -1,5 +1,5 @@
 var app = angular.module('chettiEcomm', 
-	['ngMaterial','ngAnimate', 'ngMessages','ngRoute','jkAngularRatingStars','angularGrid']);
+	['ngMaterial','ngAnimate', 'ngMessages','ngRoute','jkAngularRatingStars','angularGrid','toaster']);
 
 app.config(function($routeProvider,$locationProvider){
 
@@ -31,7 +31,7 @@ app.config(function($routeProvider,$locationProvider){
 
 		.when("/loomspace",{
 			templateUrl	: 	"template/product.html",
-			controller	: 	"prodctHme"
+			controller	: 	"prodctController"
 		})
 
 		.when("/category",{
@@ -39,7 +39,7 @@ app.config(function($routeProvider,$locationProvider){
 			controller	: 	"categoryController"
 		})
 
-		.when("/details",{
+		.when("/details:product_id",{
 			templateUrl	: 	"template/details.html",
 			controller	: 	"detailsController"
 		})

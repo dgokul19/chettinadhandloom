@@ -1,6 +1,4 @@
-app.controller('prodctHme', function($scope,$rootScope){
-	$rootScope.bodyClass = '';
-})
+
 app.controller('homeController', function($scope,$rootScope){
 	$rootScope.bodyClass = 'homeBody';	
 })
@@ -17,9 +15,6 @@ app.controller('categoryController', function($scope,$rootScope){
 	$rootScope.bodyClass = '';
 })
 
-app.controller('detailsController', function($scope,$rootScope){
-	$rootScope.bodyClass = '';
-})
 
 app.controller('contactCtrl',function(socialfac,$scope,$rootScope){
 	$rootScope.bodyClass = '';

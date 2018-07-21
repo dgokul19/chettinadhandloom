@@ -1,6 +1,12 @@
-app.factory('socialfac',function($http){
+var base_url = 'http://localhost/chettinadhandloom/crm/api/';
+app.factory('productCartApi',function($http){
 	return{
-		
+		api : function (){
+			return $http({
+				url : base_url + 'products/category',
+				method : 'GET',
+			});
+		},		
 	}	
 });
 app.factory('emailSubbs',function($http){
