@@ -1,0 +1,41 @@
+.btn-primary {
+    border-color: #0074d9 !important;
+    background-color: #0074d9 !important;
+}
+ol a{
+    color:#0074d9 !important
+}
+.settings-ul{
+    background-color: white;
+    padding: 0.5em 1em;
+    border: 1px #dcd4d475 solid;
+}
+.settings-ul a{
+    color:#373A3C;
+}
+.settings-li{
+    line-height: 2.5em;
+    border-bottom: 1px #cabfbf solid;
+}
+.settings-li-last{
+    line-height: 2.5em;
+}
+.settings-li a.active{
+    color:#0074d9 !important;
+}
+.no-bg{
+    background: transparent;
+}
+.control-but{
+    padding: 0px 5px !important;
+}
+.blank-page .content-wrapper .flexbox-container{
+    height: 80vh !important;
+}
+
+@media (min-width: 1200px){
+    .container {
+        width: 1300px !important;
+    }
+}
+
