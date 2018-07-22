@@ -1,13 +1,13 @@
-app.controller('prodctController', function($location, $scope, $rootScope, productCartApi, toaster){
+app.controller('prodctController', function($location, $scope, $rootScope, productCartApi){
     
     $scope.openDetails = function (item){
-        var opts = '?id='+ item.id + '?code=' + item.code;
-        opts = encodeURIComponent(opts);
-        $location.path('/details'+ opts);
+        var opts = btoa(item.id) + '/' + item.code;
+        console.log('Error in data fetching', opts);
+        $location.path('/products/'+ opts);
     }
     
     $scope.load_products = function (){
-        productCartApi.api().then(function(response){
+        productCartApi.get_categories().then(function(response){
             if(response.data.status == 'success'){
                 $scope.category_data = response.data.category_data;
             } else {
@@ -15,16 +15,6 @@ app.controller('prodctController', function($location, $scope, $rootScope, produ
             } 
         });
     }
-    
-    
-    var showToast =  function(type, title, messages){     
-        toaster.pop({
-            type    :   type,
-            title   :   title,
-            body    :   messages,
-            timeout : 2000,
-            showCloseButton: true
-        });
-    };
+
     $scope.load_products();
 });

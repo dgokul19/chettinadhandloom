@@ -58,39 +58,46 @@
 	<div class="container">
 		<div class="layout-row layout-xs-column">
 			<div class="flex-50 ProdImmg relative">
-				<img src="assets/images/chettinaad-handloom-category-02.jpg" alt="">
+				<img ng-src="{{products.item_cover_picture}}" alt="">
+				<div class="item_gallery">
+					<ul class="list-unstyled sub_images">
+						<li><img src="assets/images/chettinaad-handloom-01.jpg"/></li>
+						<li><img src="assets/images/chettinaad-handloom-02.jpg"/></li>
+						<li><img src="assets/images/chettinaad-handloom-03.jpg"/></li>
+					</ul>
+				</div>
 			</div>
 
 			<div class="flex-50 ProdDetls">
-				<h1>RED VELVET SAREE</h1>
+				<h1>{{products.item_name}}</h1>
 				<ul class="pricDets list-unstyled">
-					<li><i class="fa fa-inr"></i> 45.00</li>
-					<li><i class="fa fa-inr"></i> 40.00</li>
+					<!-- <li><i class="fa fa-inr"></i> 45.00</li> -->
+					<li><i class="fa fa-inr"></i> {{products.item_price}}</li>
 				</ul>
-				<p class="pricDescriptn">A brand-new, unused and undamaged item that is fully opeartional and functions as intended Saree:5.50 mtr,Blouse:0.80 mtr Good Fabric Work With Good Quality</p>
+				<p class="pricDescriptn">{{products.item_description}}</p>
 				<div class="layout-row">
-					<div class="relative detsQty">
-						<input type="text" ng-model="qtyAmnt" maxlength="3"/>
-						<i class="fa fa-angle-up"></i>
-						<i class="fa fa-angle-down"></i>
+					<div class="relative detsQty layout-row">
+						<input type="text" placeholder="quantity" ng-model="products.qty" maxlength="3"/>
+						<span class="qty_s" ng-click="change_qty(products.qty, 'add')">+</span>
+						<span class="qty_s" ng-click="change_qty(products.qty, 'minus')">-</span>
 					</div>
-
-					<md-button class="marginLeft10 chkOut">ADD TO CART</md-button>
+					<span class="error_msg" ng-if="err_qty">{{err_qty}}</span>
+					
 				</div>
 				<div class="clearfix"></div>
 				<table class="table table-condensed marginTop10">
 					<tr>
 						<td>Code</td>
-						<td>SK0001</td>
+						<td class="uppercase">{{products.item_category.category_code}}</td>
 					</tr>
 
 					<tr>
 						<td>Category</td>
-						<td>Silk Saree</td>
+						<td>{{products.item_category.category_name}}</td>
 					</tr>
 					<tr>
 						<td>Tags</td>
-						<td>Silk , Cotton</td>
+						<td>{{products.tags}}</td>
 					</tr>
 				</table>
 				<div class="clearfix"></div>
@@ -103,39 +110,11 @@
 						<li><a href="" class="fa fa-pinterest"></a></li>
 					</ul>
 				</div>
+				<md-button class="marginLeft10 chkOut pull-right">ADD TO CART</md-button>
 			</div>
 		</div>
 	</div>
 </section>
-
-<section class="prodDesmdTabs">
-	<div class="container">
-		<md-tabs class="mdTabsDets" md-dynamic-height>
-			<md-tab label="Description">
-				<md-content class="md-padding">
-					<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don’t look even slightly believable.<br>
-
-Sed utgio perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.<br>
-
-Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
-				</md-content>
-			</md-tab>
-			<md-tab label="Additional Information">
-				<md-content class="md-padding">
-					<h1 class="md-display-2">Tab Two</h1>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor, orci enim rutrum enim, vel tempor sapien arcu a tellus. Vivamus convallis sodales ante varius gravida. Curabitur a purus vel augue ultrices ultricies id a nisl. Nullam malesuada consequat diam, a facilisis tortor volutpat et. Sed urna dolor, aliquet vitae posuere vulputate, euismod ac lorem. Sed felis risus, pulvinar at interdum quis, vehicula sed odio. Phasellus in enim venenatis, iaculis tortor eu, bibendum ante. Donec ac tellus dictum neque volutpat blandit. Praesent efficitur faucibus risus, ac auctor purus porttitor vitae. Phasellus ornare dui nec orci posuere, nec luctus mauris semper.</p>
-				</md-content>
-			</md-tab>
-			<md-tab label="Reviews">
-				<md-content class="md-padding">
-					<h1 class="md-display-2">Tab Three</h1>
-					<p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
-				</md-content>
-			</md-tab>
-		</md-tabs>
-	</div>				
-</section>
-
 
 <section class="reltnProds">
 	<div class="container">
@@ -149,7 +128,6 @@ Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed 
 					<div class="hovBig padding10">
 						<ul class="list-unstyled addWishbtn">
 							<li>+</li>
-							<!-- <li><i class="fa fa-heart-o"></i></li> -->
 						</ul>
 						<div class="prod-info">
 							<p class="pull-left">Silk Cotton</p>
