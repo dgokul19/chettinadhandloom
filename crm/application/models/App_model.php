@@ -18,7 +18,7 @@ class App_model extends CI_Model
         }
     }
 
-    public function get_all($table, $where = "", $sort = '', $select = '*', $group_by = '') {
+    public function get_all($table, $where = "", $sort = '', $select = '*', $group_by = '', $limit = '', $offset = '') {
         if ($where == "") {
             $this->db->select($select)->from($table);
             if (!empty($sort)) {
@@ -40,6 +40,17 @@ class App_model extends CI_Model
             }
             if (!empty($group_by)) {
                 $this->db->group_by($group_by);
+            }
+            if (!empty($limit)) {
+                if(!empty($offset)){
+                    /*
+                    The SQL query below says "return only 10 records, start on record 16 (OFFSET 15)":
+                    $sql = "SELECT * FROM Orders LIMIT 15, 10";
+                    */
+                    $this->db->limit($limit,$offset); //The second parameter to LIMIT is not an offset, it's a length relative to the offset. So if you want 9 rows, it would be LIMIT 48, 9.
+                }else{
+                    $this->db->limit($limit);
+                }
             }
 
             return $this->db->get();

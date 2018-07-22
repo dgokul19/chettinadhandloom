@@ -91,6 +91,6 @@ define('APP_USERS',TBL_PRFFIX.'app_users');
 
 define('PRODUCT_CATEGORY',TBL_PRFFIX.'product_category');
 define('PRODUCT_SUB_CATEGORY',TBL_PRFFIX.'product_sub_category');
-define('PRODUCT_MODEL',TBL_PRFFIX.'product_model');
+define('PRODUCT_ALBUMS',TBL_PRFFIX.'product_albums');
 define('PRODUCT_DETAILS',TBL_PRFFIX.'product_details');
 define('PRODUCT_IMAGES',TBL_PRFFIX.'product_images');
