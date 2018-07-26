@@ -94,3 +94,4 @@ define('PRODUCT_SUB_CATEGORY',TBL_PRFFIX.'product_sub_category');
 define('PRODUCT_ALBUMS',TBL_PRFFIX.'product_albums');
 define('PRODUCT_DETAILS',TBL_PRFFIX.'product_details');
 define('PRODUCT_IMAGES',TBL_PRFFIX.'product_images');
+define('FILTER_PRICE_RANGE',TBL_PRFFIX.'filter_price_range');

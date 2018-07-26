@@ -42,3 +42,22 @@
 -- UPDATE `ch_product_details` SET `album_id` = '6' WHERE `ch_product_details`.`id` = 14;
 -- UPDATE `ch_product_details` SET `album_id` = '6' WHERE `ch_product_details`.`id` = 13;
 
+CREATE TABLE IF NOT EXISTS `chettinad_handloom`.`ch_filter_price_range` (
+    id int(200) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    option_name varchar(50) NOT NULL,
+    range_type ENUM ('BETWEEN','ABOVE') NOT NULL,
+    value_from float(32,2) NOT NULL,
+    value_to float(32,2) NULL,
+    is_active tinyint(1) DEFAULT 1,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP
+);
+
+INSERT INTO `ch_filter_price_range`(`option_name`, `range_type`, `value_from`, `value_to`) VALUES ('Below INR 1000', 'BETWEEN', '0', '1000');
+INSERT INTO `ch_filter_price_range`(`option_name`, `range_type`, `value_from`, `value_to`) VALUES ('INR 1000 - INR 2000', 'BETWEEN', '1000', '2000');
+INSERT INTO `ch_filter_price_range`(`option_name`, `range_type`, `value_from`) VALUES ('Above INR 2000', 'ABOVE', '2000');
+
+UPDATE `ch_product_albums` SET `album_name` = 'album 2-1' WHERE `ch_product_albums`.`id` = 3;
+
+
+

@@ -279,13 +279,6 @@ class Products extends CI_Controller
         $req_obj = file_get_contents("php://input");
         $req_Arr = json_decode($req_obj,true);
 
-        /*
-        $req_Arr = [
-            'category_id'=>1,
-            'category_code'=>'pdc01'
-        ];
-        */
-        
         if($request_method == "GET"){
             $sql = $this->app_model->get_all(PRODUCT_CATEGORY,['is_active'=>1]);
                 
@@ -346,6 +339,104 @@ class Products extends CI_Controller
                     die;
                 }           
             }
+        }else{
+            $json = ['status'=>"failed",'err_code'=>'invalid_request_method','msg'=>"Incorrect Request Method"];
+            echo json_encode($json);
+            die;
+        }
+    }
+
+    public function price_range_filter(){
+        $request_method=$_SERVER["REQUEST_METHOD"];
+        $req_obj = file_get_contents("php://input");
+        $req_Arr = json_decode($req_obj,true);
+
+        if($request_method == "GET"){
+            $sql = $this->app_model->get_all(FILTER_PRICE_RANGE,['is_active'=>1]);
+                
+            $i=0;$data=NULL;
+            foreach($sql->result() as $fetch){
+                $data[$i]['pr_option_id'] = $fetch->id;
+                $data[$i]['pr_option_name'] = $fetch->option_name;
+                $i++;
+            }
+            $json = ['status'=>"success",'err_code'=>NULL,'msg'=>"$i Records Found","data"=>$data];
+            echo json_encode($json); 
+        }else{
+            $json = ['status'=>"failed",'err_code'=>'invalid_request_method','msg'=>"Incorrect Request Method"];
+            echo json_encode($json);
+            die;
+        }
+    }
+
+    public function filter_applied_call(){
+        $request_method=$_SERVER["REQUEST_METHOD"];
+        $req_obj = file_get_contents("php://input");
+        $req_Arr = json_decode($req_obj,true);
+
+        if($request_method == "POST"){
+            $category_id    = $req_Arr['category_id'];
+            $category_code  = $req_Arr['category_code'];
+            $album_id     = $req_Arr['album_id'];
+            $album_code     = $req_Arr['album_code'];
+            $pRange_id      = $req_Arr['pr_option_id'];
+
+            if($album_id == "all"){
+                $where_album = '';
+            }else{
+                $where_album = "AND A.`album_id` = '$album_id'";
+            }
+
+            if($pRange_id == "all"){
+                $where_pRange = '';
+            }else{
+                $get_pr_filter = $this->app_model->get_all(FILTER_PRICE_RANGE,['id'=>$pRange_id]);
+                if($get_pr_filter->num_rows() != 0){
+                    $range_type = $get_pr_filter->row()->range_type;
+                    $value_from = $get_pr_filter->row()->value_from;
+                    $value_to = $get_pr_filter->row()->value_to;
+                    if($range_type == "BETWEEN"){
+                        $where_pRange = "AND A.`price` BETWEEN $value_from AND $value_to";
+                    }else{
+                        $where_pRange = "AND A.`price` >= $value_from";
+                    }
+                }else{
+                    $where_pRange = "";
+                }
+            }
+
+            $sql_avl = "SELECT A.*,B.c_ref_code,B.category_name,C.album_code,C.album_name FROM `ch_product_details` as A 
+                INNER JOIN `ch_product_category` as B on A.category_id=B.id INNER JOIN `ch_product_albums` as C ON A.album_id=C.id
+                WHERE A.`category_id`='$category_id' AND A.`status`='available' AND A.`published`='1' $where_album $where_pRange ORDER BY A.`id` DESC";
+            $get_avl_pd_list = $this->app_model->ExecuteQuery($sql_avl);
+
+            $json = ['status'=>"success",'err_code'=>NULL];
+            $i=0;$data=NULL;
+            $product_picture_url = ASSETS."product-images/products/";
+            foreach($get_avl_pd_list->result() as $f1){
+                $sql_avl_image = $this->app_model->get_all(PRODUCT_IMAGES,['is_cover_image'=>'1','pdt_p_id'=>$f1->id])->row();
+                $item_cover_picture = $product_picture_url.$sql_avl_image->picture_url;
+
+                $data[$i]['item_id']           = $f1->id;
+                $data[$i]['item_code']         = $f1->product_code;
+                $data[$i]['item_name']         = $f1->pdt_name;
+                $data[$i]['item_description']  = $f1->pdt_description;
+                $data[$i]['tags']              = $f1->tags;
+                
+                $data[$i]['item_price']            = $f1->price;
+                $data[$i]['item_status']           = ($f1->status == "available")? TRUE:FALSE;
+                $data[$i]['item_cover_picture']    = $item_cover_picture;
+                $data[$i]['category_code']         = $f1->c_ref_code;
+                $data[$i]['category_name']         = $f1->category_name;
+
+                $data[$i]['album_code']            = $f1->album_code;
+                $data[$i]['album_name']            = $f1->album_name;
+
+                $i++;
+            }
+            
+            $json = ['status'=>"success",'err_code'=>NULL,'msg'=>"$i Records Found","data"=>$data];
+            echo json_encode($json); 
         }else{
             $json = ['status'=>"failed",'err_code'=>'invalid_request_method','msg'=>"Incorrect Request Method"];
             echo json_encode($json);
