@@ -112,7 +112,10 @@ md-radio-button .md-on{
 	color : #fff !important;
 }
 ._black{
-	color : #fff !important;
+	color : #111 !important;
+}
+._pink {
+	color : #ff462e !important;
 }
 .uppercase{
 	text-transform: uppercase;
@@ -193,6 +196,8 @@ md-toast.md-right {
 md-toast{
 	position: fixed;
 }
+
+._black
 
 /* 	THEME CSS 	*/
 
@@ -624,7 +629,7 @@ md-input-container.subscrbInp:not(.md-input-invalid).md-input-focused label{
 	color:#555;
 }
 .pageCrumbs{
-	padding:2.5em 0px;
+	padding:1em 0px;
 	background-color: #ececec;
 	color: #9a9a9a;
 }

@@ -1,21 +1,3 @@
-
-<div class="detailsBar">
-	<div class="container layout-row relative">
-		<ul class="topsocial list-unstyled layout-row margin0 flex-30">
-			<li><a class="fa fa-facebook"></a></li>
-			<li><a class="fa fa-twitter"></a></li>
-			<li><a class="fa fa-google-plus"></a></li>
-			<li><a class="fa fa-instagram"></a></li>
-			<li><a class="fa fa-linkedin"></a></li>
-		</ul>
-		<p class="flex-40 txtCenter margin0">Free shipping for standard order over $75</p>
-		<ul class="flex-30 CartLst list-unstyled layout-row margin0 txtRight">
-			<li><a href="" class="fa fa-search"></a></li>
-			<li><a href="" class="fa fa-heart-o"></a></li>
-			<li><a href="" class="fa fa-user-o"></a></li>
-		</ul>
-	</div>
-</div>	
 <header class="origMenu detailsPage">
 	<div class="container">
 		<button class="sideTooge layout-column layout-align-center-center">
@@ -26,7 +8,7 @@
 			
 		<ul class="list-unstyled userActivity layout-row">
 			<li><a class="fa fa-user-o"></a></li>
-			<li><a class="fa fa-shopping-bag"></a></li>
+			<li><a class="fa fa-shopping-bag" ng-class="{'_pink' : !cartIsEmpty, '_black' : cartIsEmpty}"></a></li>
 		</ul>
 		
 		<div class="collapse navbar-collapse" id="myNavbar">
@@ -70,7 +52,6 @@
 			<div class="flex-50 ProdDetls">
 				<h1>{{products.item_name}}</h1>
 				<ul class="pricDets list-unstyled">
-					<!-- <li><i class="fa fa-inr"></i> 45.00</li> -->
 					<li><i class="fa fa-inr"></i> {{products.item_price}}</li>
 				</ul>
 				<p class="pricDescriptn">{{products.item_description}}</p>
@@ -109,7 +90,11 @@
 						<li><a href="" class="fa fa-pinterest"></a></li>
 					</ul>
 				</div>
-				<md-button class="marginLeft10 chkOut pull-right">ADD TO CART</md-button>
+				<div class="layout-row">
+					<md-button ng-hide="!cartIsEmpty" class="marginLeft10 chkOut pull-right" ng-click="addtoCart(products)">ADD TO CART</md-button>
+					<md-button ng-hide="cartIsEmpty" class="marginLeft10 chkOut pull-right" ng-click="continue_shopping()">CONTINUE SHOPPING</md-button>
+					<md-button ng-hide="cartIsEmpty" class="marginLeft10 chkOut pull-right">VIEW CART</md-button>
+				</div>
 			</div>
 		</div>
 	</div>

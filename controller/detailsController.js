@@ -1,11 +1,13 @@
 
-app.controller('detailsController', function($scope,$mdToast,$rootScope, $timeout, $routeParams,productCartApi){
+app.controller('detailsController', function($scope,$mdToast,$rootScope, $timeout, $routeParams,  $localStorage, userSession, productCartApi){
     var product_id = atob($routeParams.product_id);
     var product_code = $routeParams.product_code;
     var params = {
         "product_id" : product_id,
         "product_code" : product_code
     }
+    $scope.cartIsEmpty = true;
+    $scope.cart = [];
 
     $scope.change_qty = function (qty, type){
         if(type === 'add'){
@@ -31,6 +33,20 @@ app.controller('detailsController', function($scope,$mdToast,$rootScope, $timeou
         if(objects && objects.item_name)
             $scope.pages.push(objects.item_name);
     };
+
+    $scope.addtoCart = function (product){
+        if(!_.isEmpty(product)){
+            userSession.setSession(product, function(data){
+                $scope.cartIsEmpty = false;
+            });
+        } else
+            return productCartApi.showToast('error', 'No Products were added !!');
+       
+    }
+    $scope.continue_shopping = function(){
+        // userSession.clearState();
+    }
+
 
     $scope.get_product_details = function (){
         productCartApi.get_product_details(params, function(err, response){
