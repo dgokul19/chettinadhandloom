@@ -11,9 +11,7 @@ app.controller('placesController', function($scope,$rootScope){
 app.controller('serviceController', function($scope,$rootScope){
 	$rootScope.bodyClass = '';
 })
-app.controller('categoryController', function($scope,$rootScope){
-	$rootScope.bodyClass = '';
-})
+
 
 
 app.controller('contactCtrl',function(socialfac,$scope,$rootScope){

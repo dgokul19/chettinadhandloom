@@ -9,6 +9,20 @@ app.factory('productCartApi', function($http, $mdToast){
 				method : 'GET',
 			});
 		},		
+		get_category_details : function (params, callback){
+			return $http({
+				url : base_url + 'products/list-category-products',
+				method : 'POST',
+				data : JSON.stringify(params)
+			}).then(function(response){
+				if(response.data.status === 'success'){
+					callback(null, response.data.data);
+				} else{
+					productCartApi.showToast('error','Error!!', 'Error in data');
+					callback('Error in :', response.data.err_code);
+				}
+			});
+		},
 		get_product_details : function (params, callback){
 			return $http({
 				url : base_url + 'products/detailed_view',

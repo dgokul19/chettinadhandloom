@@ -48,8 +48,7 @@
 <div class="pageCrumbs" layout="row" layout-align="center center">
 	<ul class="margin0 list-unstyled layout-row txtCenter">
 		<li><a href="">Home</a></li>
-		<li><a href="">Silk saree</a></li>
-		<li><a class="active" href="">Red Velvet saree</a></li>
+		<li ng-repeat="crumb in pages"><a href="" ng-class="{'active' : $last}">{{crumb}}</a></li>
 	</ul>
 </div>
 
@@ -196,15 +195,4 @@
 	</div>
 </section>
 
-<footer class="subpages">
-	<h3 class="txtCenter news_titl">NEWSLETTER SIGNUP</h3>
-	<p class="txtCenter news_sub">Get the latest news and special offers.</p>
-	<div class="layout-row layout-align-center-center">
-		<md-input-container class="flex-40 subscrbInp">
-			<label>Subscribe our newsletter</label>
-			<input type="text" ng-model="subsEmail">
-		</md-input-container>
-		<md-button class="md-primary subscrbBtn">SUBMIT</md-button>
-	</div>
-
-	<div footer-template></div>
+<div footer-template></div>

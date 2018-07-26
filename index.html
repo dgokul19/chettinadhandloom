@@ -16,9 +16,9 @@
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/responsive.css">
 </head>
-	<body ng-app="chettiEcomm" class="{{bodyClass}}">
+	<body>
 	
-	  <ng-view></ng-view>	
+	  <ng-view ng-app="chettiEcomm" class="{{bodyClass}}" autoscroll="true"></ng-view>	
 
 
 	  <script src="assets/js/jquery.js"></script>
@@ -41,6 +41,7 @@
 	  <!--  CONTROLLER  --> 
 	  <script src="controller/homeController.js"></script>	
 	  <script src="controller/productController.js"></script>	
+	  <script src="controller/categoryController.js"></script>	
 	  <script src="controller/detailsController.js"></script>	
 	  <script src="controller/loginController.js"></script>	
 	  <script src="controller/dashboardMain.js"></script>	
@@ -55,6 +56,7 @@
 
 	  <!--  CUSTOM JQUERY LIBRARY  --> 
 	<script src="assets/js/underscore.js"></script>
+	<script src="assets/js/async.js"></script>
 	
 	
 	  <!--  CUSTOM LIBRARY  --> 

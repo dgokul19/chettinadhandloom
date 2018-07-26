@@ -34,7 +34,7 @@ app.config(function($routeProvider,$locationProvider){
 			controller	: 	"prodctController"
 		})
 
-		.when("/category",{
+		.when("/category/:categ_id/:categ_code",{
 			templateUrl	: 	"template/category.html",
 			controller	: 	"categoryController"
 		})

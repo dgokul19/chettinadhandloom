@@ -20,10 +20,27 @@ app.controller('detailsController', function($scope,$mdToast,$rootScope, $timeou
             }
         }
     };
+    
+    var load_page_crumb = function (objects){
+        $scope.pages = [];
+        
+        if(objects && objects.item_category && objects.item_category.category_name)
+            $scope.pages.push(objects.item_category.category_name);
+        if(objects && objects.item_album && objects.item_album.album_name)
+            $scope.pages.push(objects.item_album.album_name);
+        if(objects && objects.item_name)
+            $scope.pages.push(objects.item_name);
+    };
 
-    productCartApi.get_product_details(params, function(err, response){
-        if (err) return console.log(err);
-        response.qty = '1';
-        $scope.products = response;
-    });
+    $scope.get_product_details = function (){
+        productCartApi.get_product_details(params, function(err, response){
+            if (err) return console.log(err);
+            response.qty = '1';
+            $scope.products = response;
+            load_page_crumb($scope.products);
+        });
+    }
+    
+   
+        $scope.get_product_details();
 });

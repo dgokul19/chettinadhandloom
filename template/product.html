@@ -36,17 +36,17 @@
 			</ul>
 		</div>
 		
-<section class="productContainer">
+<section class="productContainer" ng-cloak>
 	<!-- <div class="container prod_title_space">
 		<h2 class="margin0 categTitle txtCenter">COTTON SAREE</h2>
 		<h5 class="txtCenter categsubTit">Fine sarees in pure & Blended cotton silk</h5>
 	</div> -->
 
-	<div class="layout-row main_wrap" ng-repeat="product in category_data">
+	<div class="layout-row main_wrap" ng-if="productsLoad" ng-repeat="product in category_data">
 		<div class="flex-50">
-			<div class="relative productBox">
+			<div class="relative productBox" ng-click="explore_products(product)">
 				<img class="imgMain" ng-src="{{product.cover_picture_url}}" alt=""/>
-				<a  href="" class="hovBig layout-column layout-align-center-center">
+				<a href="" class="hovBig layout-column layout-align-center-center">
 					<h2 class="margin0">{{product.category_name}}</h2>
 					<h4>{{product.description}}</h4>
 				</a>
@@ -79,186 +79,6 @@
 		</div>
 	</div>
 </section>
-
-<!-- <section class="layout-row productContainer">
-	<div class="flex-50 layout-row layout-wrap ">
-		<div class="flex-50">
-			<div class="relative mproductBox ">
-				<img src="assets/images/chettinaad-handloom-05.jpg" alt=""/>
-				<div class="hovBig padding10">
-					<ul class="list-unstyled addWishbtn">
-						<li>+</li>
-						<li><i class="fa fa-heart-o"></i></li>
-					</ul>
-					<md-button class="sale pull-right">SALE</md-button>
-					<div class="prod-info">
-						<p class="pull-left">Silk Cotton</p>
-						<ul class="list-unstyled pric-info layout-row">
-							<li class="exisPric"><i class="fa fa-rupee"></i> 855.00</li>
-							<li><i class="fa fa-rupee"></i> 749.50</li>
-						</ul>
-					</div>
-				</div>			
-			</div>
-		</div>
-		<div class="flex-50">
-			<div class="relative mproductBox">
-				<img src="assets/images/chettinaad-handloom-06.jpg" alt=""/>
-				<div class="hovBig padding10">
-					<ul class="list-unstyled addWishbtn">
-						<li>+</li>
-						<li><i class="fa fa-heart-o"></i></li>
-					</ul>
-					<md-button class="sale pull-right">SALE</md-button>
-					<div class="prod-info">
-						<p class="pull-left">Silk Cotton</p>
-						<ul class="list-unstyled pric-info layout-row">
-							<li class="exisPric"><i class="fa fa-rupee"></i> 855.00</li>
-							<li><i class="fa fa-rupee"></i> 749.50</li>
-						</ul>
-					</div>
-				</div>	
-			</div>
-		</div>
-		<div class="flex-50">
-			<div class="relative mproductBox">
-				<img src="assets/images/chettinaad-handloom-07.jpg" alt=""/>
-				<div class="hovBig padding10">
-					<ul class="list-unstyled addWishbtn">
-						<li>+</li>
-						<li><i class="fa fa-heart-o"></i></li>
-					</ul>
-					<md-button class="sale pull-right">SALE</md-button>
-					<div class="prod-info">
-						<p class="pull-left">Silk Cotton</p>
-						<ul class="list-unstyled pric-info layout-row">
-							<li class="exisPric"><i class="fa fa-rupee"></i> 855.00</li>
-							<li><i class="fa fa-rupee"></i> 749.50</li>
-						</ul>
-					</div>
-				</div>	
-			</div>
-		</div>
-		<div class="flex-50">
-			<div class="relative mproductBox">
-				<img src="assets/images/chettinaad-handloom-08.jpg" alt=""/>
-				<div class="hovBig padding10">
-					<ul class="list-unstyled addWishbtn">
-						<li>+</li>
-						<li><i class="fa fa-heart-o"></i></li>
-					</ul>
-					<md-button class="sale pull-right">SALE</md-button>
-					<div class="prod-info">
-						<p class="pull-left">Silk Cotton</p>
-						<ul class="list-unstyled pric-info layout-row">
-							<li class="exisPric"><i class="fa fa-rupee"></i> 855.00</li>
-							<li><i class="fa fa-rupee"></i> 749.50</li>
-						</ul>
-					</div>
-				</div>	
-			</div>
-		</div>
-	</div>
-	<div class="flex-50">
-		<div class="relative productBox">
-			<img class="imgMain" src="assets/images/chettinaad-handloom-02.jpg" alt=""/>
-			<div class="hovBig layout-column layout-align-center-center">
-				<h2 class="margin0">Chettinad Cotton </h2>
-				<h4>Tradition sarees from Chettinaad</h4>
-			</div>
-		</div>
-	</div>			
-</section>
-
-<section class="layout-row productContainer">
-	<div class="flex-50">
-		<div class="relative productBox">
-			<img class="imgMain" src="assets/images/chettinaad-handloom-category-01.jpg" alt=""/>
-			<div class="hovBig layout-column layout-align-center-center">
-				<h2 class="margin0">COTTON SILK SAREE</h2>
-				<h4>Fine sarees in pure & Blended cotton silk</h4>
-			</div>
-		</div>
-	</div>
-	<div class="flex-50 layout-row layout-wrap ">
-		<div class="flex-50">
-			<div class="relative mproductBox ">
-				<img src="assets/images/chettinaad-handloom-01.jpg" alt=""/>
-				<div class="hovBig padding10">
-					<ul class="list-unstyled addWishbtn">
-						<li>+</li>
-						<li><i class="fa fa-heart-o"></i></li>
-					</ul>
-					<md-button class="sale pull-right">SALE</md-button>
-					<div class="prod-info">
-						<p class="pull-left">Silk Cotton</p>
-						<ul class="list-unstyled pric-info layout-row">
-							<li class="exisPric"><i class="fa fa-rupee"></i> 855.00</li>
-							<li><i class="fa fa-rupee"></i> 749.50</li>
-						</ul>
-					</div>
-				</div>			
-			</div>
-		</div>
-		<div class="flex-50">
-			<div class="relative mproductBox">
-				<img src="assets/images/chettinaad-handloom-02.jpg" alt=""/>
-				<div class="hovBig padding10">
-					<ul class="list-unstyled addWishbtn">
-						<li>+</li>
-						<li><i class="fa fa-heart-o"></i></li>
-					</ul>
-					<md-button class="sale pull-right">SALE</md-button>
-					<div class="prod-info">
-						<p class="pull-left">Silk Cotton</p>
-						<ul class="list-unstyled pric-info layout-row">
-							<li class="exisPric"><i class="fa fa-rupee"></i> 855.00</li>
-							<li><i class="fa fa-rupee"></i> 749.50</li>
-						</ul>
-					</div>
-				</div>	
-			</div>
-		</div>
-		<div class="flex-50">
-			<div class="relative mproductBox">
-				<img src="assets/images/chettinaad-handloom-03.jpg" alt=""/>
-				<div class="hovBig padding10">
-					<ul class="list-unstyled addWishbtn">
-						<li>+</li>
-						<li><i class="fa fa-heart-o"></i></li>
-					</ul>
-					<md-button class="sale pull-right">SALE</md-button>
-					<div class="prod-info">
-						<p class="pull-left">Silk Cotton</p>
-						<ul class="list-unstyled pric-info layout-row">
-							<li class="exisPric"><i class="fa fa-rupee"></i> 855.00</li>
-							<li><i class="fa fa-rupee"></i> 749.50</li>
-						</ul>
-					</div>
-				</div>	
-			</div>
-		</div>
-		<div class="flex-50">
-			<div class="relative mproductBox">
-				<img src="assets/images/chettinaad-handloom-04.jpg" alt=""/>
-				<div class="hovBig padding10">
-					<ul class="list-unstyled addWishbtn">
-						<li>+</li>
-						<li><i class="fa fa-heart-o"></i></li>
-					</ul>
-					<md-button class="sale pull-right">SALE</md-button>
-					<div class="prod-info">
-						<p class="pull-left">Silk Cotton</p>
-						<ul class="list-unstyled pric-info layout-row">
-							<li class="exisPric"><i class="fa fa-rupee"></i> 855.00</li>
-							<li><i class="fa fa-rupee"></i> 749.50</li>
-						</ul>
-					</div>
-				</div>	
-			</div>
-		</div>
-	</div>
-</section> -->
 
 <section class="view_pr" layout="column" layout-align="center center">
 	<md-button class="viewbtn">
