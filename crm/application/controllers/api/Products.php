@@ -167,13 +167,13 @@ class Products extends CI_Controller
                 if($check->num_rows() != 0){
                     $sql_avl = "SELECT A.*,B.c_ref_code,B.category_name,C.album_code,C.album_name FROM `ch_product_details` as A 
                         INNER JOIN `ch_product_category` as B on A.category_id=B.id INNER JOIN `ch_product_albums` as C ON A.album_id=C.id
-                        WHERE A.`category_id`='$category_id' AND A.`status`='available' AND A.`published`='1' ";
+                        WHERE A.`category_id`='$category_id' AND A.`status`='available' AND A.`published`='1' ORDER BY A.`id` DESC";
                     $get_avl_pd_list = $this->app_model->ExecuteQuery($sql_avl);
 
-                    $sql_sold = "SELECT A.*,B.c_ref_code,B.category_name,C.album_code,C.album_name FROM `ch_product_details` as A 
-                        INNER JOIN `ch_product_category` as B on A.category_id=B.id INNER JOIN `ch_product_albums` as C ON A.album_id=C.id
-                        WHERE A.`category_id`='$category_id' AND A.`status`='sold' AND A.`created_at` >= DATE_SUB(CURDATE(), INTERVAL 2 DAY) AND A.`published`='1'";
-                    $get_sold_pd_list = $this->app_model->ExecuteQuery($sql_avl);
+                    // $sql_sold = "SELECT A.*,B.c_ref_code,B.category_name,C.album_code,C.album_name FROM `ch_product_details` as A 
+                    //     INNER JOIN `ch_product_category` as B on A.category_id=B.id INNER JOIN `ch_product_albums` as C ON A.album_id=C.id
+                    //     WHERE A.`category_id`='$category_id' AND A.`status`='sold' AND A.`created_at` >= DATE_SUB(CURDATE(), INTERVAL 2 DAY) AND A.`published`='1'";
+                    // $get_sold_pd_list = $this->app_model->ExecuteQuery($sql_avl);
 
                     $json = ['status'=>"success",'err_code'=>NULL];
                     $i=0;$data=NULL;
@@ -182,43 +182,78 @@ class Products extends CI_Controller
                         $sql_avl_image = $this->app_model->get_all(PRODUCT_IMAGES,['is_cover_image'=>'1','pdt_p_id'=>$f1->id])->row();
                         $item_cover_picture = $product_picture_url.$sql_avl_image->picture_url;
 
-                        $data[$f1->id]['item_id']           = $f1->id;
-                        $data[$f1->id]['item_code']         = $f1->product_code;
-                        $data[$f1->id]['item_name']         = $f1->pdt_name;
-                        $data[$f1->id]['item_description']  = $f1->pdt_description;
-                        $data[$f1->id]['tags']              = $f1->tags;
+                        // $data[$f1->id]['item_id']           = $f1->id;
+                        // $data[$f1->id]['item_code']         = $f1->product_code;
+                        // $data[$f1->id]['item_name']         = $f1->pdt_name;
+                        // $data[$f1->id]['item_description']  = $f1->pdt_description;
+                        // $data[$f1->id]['tags']              = $f1->tags;
                         
-                        $data[$f1->id]['item_price']            = $f1->price;
-                        $data[$f1->id]['item_status']           = ($f1->status == "available")? TRUE:FALSE;
-                        $data[$f1->id]['item_cover_picture']    = $item_cover_picture;
-                        $data[$f1->id]['category_code']         = $f1->c_ref_code;
-                        $data[$f1->id]['category_name']         = $f1->category_name;
+                        // $data[$f1->id]['item_price']            = $f1->price;
+                        // $data[$f1->id]['item_status']           = ($f1->status == "available")? TRUE:FALSE;
+                        // $data[$f1->id]['item_cover_picture']    = $item_cover_picture;
+                        // $data[$f1->id]['category_code']         = $f1->c_ref_code;
+                        // $data[$f1->id]['category_name']         = $f1->category_name;
 
-                        $data[$f1->id]['album_code']            = $f1->album_code;
-                        $data[$f1->id]['album_name']            = $f1->album_name;
+                        // $data[$f1->id]['album_code']            = $f1->album_code;
+                        // $data[$f1->id]['album_name']            = $f1->album_name;
+
+                        $data[$i]['item_id']           = $f1->id;
+                        $data[$i]['item_code']         = $f1->product_code;
+                        $data[$i]['item_name']         = $f1->pdt_name;
+                        $data[$i]['item_description']  = $f1->pdt_description;
+                        $data[$i]['tags']              = $f1->tags;
+                        
+                        $data[$i]['item_price']            = $f1->price;
+                        $data[$i]['item_status']           = ($f1->status == "available")? TRUE:FALSE;
+                        $data[$i]['item_cover_picture']    = $item_cover_picture;
+                        $data[$i]['category_code']         = $f1->c_ref_code;
+                        $data[$i]['category_name']         = $f1->category_name;
+
+                        $data[$i]['album_code']            = $f1->album_code;
+                        $data[$i]['album_name']            = $f1->album_name;
+
                         $i++;
                     }
 
+                    /*
                     foreach($get_sold_pd_list->result() as $f2){
                         $sql_sold_image = $this->app_model->get_all(PRODUCT_IMAGES,['is_cover_image'=>'1','pdt_p_id'=>$f2->id])->row();
                         $item_cover_picture = $product_picture_url.$sql_sold_image->picture_url;
                         
-                        $data[$f2->id]['item_id']           = $f2->id;
-                        $data[$f2->id]['item_code']         = $f2->product_code;
-                        $data[$f2->id]['item_name']         = $f2->pdt_name;
-                        $data[$f2->id]['item_description']  = $f2->pdt_description;
-                        $data[$f2->id]['tags']              = $f2->tags;
+                        // $data[$f2->id]['item_id']           = $f2->id;
+                        // $data[$f2->id]['item_code']         = $f2->product_code;
+                        // $data[$f2->id]['item_name']         = $f2->pdt_name;
+                        // $data[$f2->id]['item_description']  = $f2->pdt_description;
+                        // $data[$f2->id]['tags']              = $f2->tags;
                         
-                        $data[$f2->id]['item_price']            = $f2->price;
-                        $data[$f2->id]['item_status']           = ($f2->status == "available")? TRUE:FALSE;
-                        $data[$f2->id]['item_cover_picture']    = $item_cover_picture;
-                        $data[$f2->id]['category_code']         = $f2->c_ref_code;
-                        $data[$f2->id]['category_name']         = $f2->category_name;
+                        // $data[$f2->id]['item_price']            = $f2->price;
+                        // $data[$f2->id]['item_status']           = ($f2->status == "available")? TRUE:FALSE;
+                        // $data[$f2->id]['item_cover_picture']    = $item_cover_picture;
+                        // $data[$f2->id]['category_code']         = $f2->c_ref_code;
+                        // $data[$f2->id]['category_name']         = $f2->category_name;
 
-                        $data[$f2->id]['album_code']            = $f2->album_code;
-                        $data[$f2->id]['album_name']            = $f2->album_name;
+                        // $data[$f2->id]['album_code']            = $f2->album_code;
+                        // $data[$f2->id]['album_name']            = $f2->album_name;
+
+                        $data[$i]['item_id']           = $f1->id;
+                        $data[$i]['item_code']         = $f1->product_code;
+                        $data[$i]['item_name']         = $f1->pdt_name;
+                        $data[$i]['item_description']  = $f1->pdt_description;
+                        $data[$i]['tags']              = $f1->tags;
+                        
+                        $data[$i]['item_price']            = $f1->price;
+                        $data[$i]['item_status']           = ($f1->status == "available")? TRUE:FALSE;
+                        $data[$i]['item_cover_picture']    = $item_cover_picture;
+                        $data[$i]['category_code']         = $f1->c_ref_code;
+                        $data[$i]['category_name']         = $f1->category_name;
+
+                        $data[$i]['album_code']            = $f1->album_code;
+                        $data[$i]['album_name']            = $f1->album_name;
+
                         $i++;
                     }
+                    */
+
                     // print_r($data);
                     // $data2 = krsort($data);   //sorting by key --> by ID
                     // print_r(($data2));die;
@@ -319,7 +354,8 @@ class Products extends CI_Controller
     }
 
     public function test(){
-        // echo strtolower(random_string('nozero',6));
+        $redirect_url = str_replace('/crm','',base_url());
+        redirect($redirect_url.'#/orders');die;
         $weight = array("5"=>['item_id'=>'5'], "3"=>['item_id'=>'5'], "7"=>['item_id'=>'5']);    
         print_r(ksort($weight));
         var_dump($weight);
