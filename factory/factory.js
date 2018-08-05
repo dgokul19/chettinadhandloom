@@ -7,7 +7,22 @@ app.factory('productCartApi', function($http, $mdToast){
 			return $http({
 				url : base_url + 'products/category',
 				method : 'GET',
-			});
+			})
+		},		
+		filter_categories : function (){
+			return $http({
+				url : base_url + 'products/get-categories',
+				method : 'GET',
+			})
+		},		
+		filter_get_album : function (params){
+			console.log(params);
+			var opts = {"category_id" : params.album_id, "category_code" : params.category_code};
+			return $http({
+				url : base_url + 'products/get-category-albums',
+				method : 'POST',
+				data : JSON.stringify(opts)
+			})
 		},		
 		get_category_details : function (params, callback){
 			return $http({
@@ -16,9 +31,9 @@ app.factory('productCartApi', function($http, $mdToast){
 				data : JSON.stringify(params)
 			}).then(function(response){
 				if(response.data.status === 'success'){
-					callback(null, response.data.data);
+					callback(null, response.data);
 				} else{
-					productCartApi.showToast('error','Error!!', 'Error in data');
+					showToast('error','Error!!', 'Error in data');
 					callback('Error in :', response.data.err_code);
 				}
 			});
@@ -32,7 +47,7 @@ app.factory('productCartApi', function($http, $mdToast){
 				if(response.data.status === 'success'){
 					callback(null, response.data.data);
 				} else{
-					productCartApi.showToast('error','Error!!', 'Error in data');
+					showToast('error','Error!!', 'Error in data');
 					callback('Error in :', response.data.err_code);
 				}
 			});
