@@ -124,12 +124,12 @@ class Products extends CI_Controller
         $req_obj = file_get_contents("php://input");
         $req_Arr = json_decode($req_obj,true);
 
-        /*
+        
         $req_Arr = [
             'product_id'=>1,
             'product_code'=>'S1200'
         ];
-        */
+        
 
         if(empty($req_Arr)){
             $json = ['status'=>"failed",'err_code'=>'invalid_request_type','msg'=>"No Inputs"];
@@ -152,9 +152,16 @@ class Products extends CI_Controller
 
                 $item_gallery = null;$tmp_i=0;
                 $sql3 = $this->app_model->get_all(PRODUCT_IMAGES,['is_cover_image'=>'0','pdt_p_id'=>$fetch->id]);
-                foreach($sql3->result() as $key){
-                    $item_gallery[$tmp_i] = $product_picture_url.$key->picture_url;
-                }
+//                foreach($sql3->result() as $key){
+//                    $item_gallery[$tmp_i] = $product_picture_url.$key->picture_url;
+//                    $tmp_i++;
+//                }
+                $item_gallery = [
+                    $product_picture_url.'stock_src/31582168_990642357750049_8340539421807869952_n.jpg',
+                    $product_picture_url.'stock_src/31676631_990642294416722_2783858738816090112_n.jpg',
+                    $product_picture_url.'stock_src/31680738_990642471083371_1809283045346246656_n.jpg',
+                    $product_picture_url.'stock_src/31687360_990642344416717_4691910467008856064_n.jpg'
+                ];
 
                 $json['item_id'] = $fetch->id;
                 $json['item_code'] = $fetch->product_code;
