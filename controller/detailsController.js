@@ -2,6 +2,9 @@
 app.controller('detailsController', function($scope,$mdToast,$rootScope, $timeout, $routeParams,  $localStorage, userSession, productCartApi){
     var product_id = atob($routeParams.product_id);
     var product_code = $routeParams.product_code;
+    var product_name = $routeParams.product_name;
+
+    $scope.product_name = angular.copy(product_name);
     var params = {
         "product_id" : product_id,
         "product_code" : product_code

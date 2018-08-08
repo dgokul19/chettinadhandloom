@@ -1563,3 +1563,10 @@ span.goBack{
 .acc_form_sub h5{
 	font-weight: 500;
 }
+.clear_filter {
+	position: absolute;
+    right: 15px;
+    top: -25px;
+	color: #e41313;
+	font-weight: 500;
+}

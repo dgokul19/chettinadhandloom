@@ -1,7 +1,8 @@
 app.controller('prodctController', function($location, $window, $scope, $rootScope, $timeout, productCartApi){
     $scope.productsLoad = false;
+    
     $scope.openDetails = function (item){
-        var opts = btoa(item.id) + '/' + item.code;
+        var opts = btoa(item.id) + '/' + item.code + '/' + item.name;
         $location.path('/products/'+ opts);
     }
 

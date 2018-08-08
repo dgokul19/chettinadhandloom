@@ -39,13 +39,13 @@
 
 	<div class="catePage">
 		<div class="container">
-			<h2 class="margin0 categTitle txtCenter">COTTON SAREE</h2>
-			<h5 class="txtCenter categsubTit">Fine sarees in pure & Blended cotton silk</h5>
+			<h2 class="margin0 categTitle txtCenter">{{title.name}}</h2>
+			<!-- <h5 class="txtCenter categsubTit">{{title.descr}}</h5> -->
 
-			<div class="filterBox">
+			<div class="filterBox relative">
 				<div class=" col-sm-4">
 					<div class="filtDiv relative">
-						<select class="margin0" ng-model="filter.category" ng-change="get_album(filter.category)">
+						<select class="margin0" ng-model="filter.category" ng-change="get_category_filter(filter.category);">
 							<option ng-repeat="categ in filter_categories" ng-value="categ.category_code">{{categ.category_description}}</option>
 						</select>
 						<i class="fa fa-angle-down"></i>
@@ -54,8 +54,8 @@
 
 				<div class=" col-sm-4">
 					<div class="filtDiv relative">
-						<select class="margin0" ng-model = "filter.album" ng-disabled="filter_album.length < 1">
-							<option ng-repeat="album in filter_album" ng-value="album.album_id">{{album.album_description}}</option>
+						<select class="margin0" ng-model = "filter.album" ng-change="get_album_filter(filter)" ng-disabled="filter_album.length < 1">
+							<option ng-repeat="album in filter_album" ng-value="album">{{album.album_description}}</option>
 						</select>
 						<i class="fa fa-angle-down"></i>
 					</div>
@@ -63,28 +63,25 @@
 
 				<div class=" col-sm-4">
 					<div class="filtDiv relative">
-						<select class="margin0">
+						<select class="margin0" ng-model="filter.price" ng-change="get_price_filter(filter.price)">
 							<option value="">Sort by</option>
-							<option value="">Sort by Newest</option>
-							<option value="">Sort by Oldest</option>
-							<option value="">Sort by Ascending</option>
-							<option value="">Sort by Descending</option>
+							<option ng-repeat="price in price_ranges" ng-value="price.pr_option_id">{{price.pr_option_name}}</option>
 						</select>
 						<i class="fa fa-angle-down"></i>
 					</div>
 				</div>
 				<div class="clearfix"></div>
+				<!-- <a class="clear_filter" href="" ng-click="clear_filter()">clear</a> -->
 			</div>	
 
 
 			<div class="producBoxx layout-row layout-wrap">
-				<div class="categBo" ng-repeat="item in categories | filter: filteredContent">
+				<div class="categBo" ng-repeat="item in categories">
 					<div class="relative mproductBox">
 						<img ng-src="{{item.item_cover_picture}}" alt=""/>
 						<div class="hovBig padding10">
 							<ul class="list-unstyled addWishbtn">
-								<li>+</li>
-								<li><i class="fa fa-heart-o"></i></li>
+								<li ng-click="openDetails(item)">+</li>
 							</ul>
 							<md-button class="sale pull-right">
 								<span ng-if="item.item_status">SALE</span>
