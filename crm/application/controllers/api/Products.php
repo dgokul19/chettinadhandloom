@@ -75,6 +75,50 @@ class Products extends CI_Controller
         }
         echo json_encode($json);
     }
+    
+    public function loomspace(){
+        if($_SERVER['REQUEST_METHOD'] != "GET"){
+            $json = ['status'=>"failed",'err_code'=>'invalid_request_method','msg'=>"Incorrect Request Method"];
+            echo json_encode($json);
+            die;
+        }
+        
+        $getCategory = $this->app_model->get_all(PRODUCT_CATEGORY,['is_active'=>1]);
+        if($getCategory->num_rows() > 0){
+            $i=0;$j=0;
+            $json['status'] = 'success';
+            $json['err_code'] = NULL;
+            $cat_cover_picture_baseUrl = ASSETS."product-images/core/category/";
+            $album_cover_picture_baseUrl = ASSETS."product-images/core/albums/";
+            foreach($getCategory->result() as $fetchCategory){
+                $json['category_data'][$i]['id'] = $fetchCategory->id;
+                $json['category_data'][$i]['code'] = $fetchCategory->c_ref_code;
+                $json['category_data'][$i]['name'] = $fetchCategory->category_name;
+                $json['category_data'][$i]['description'] = $fetchCategory->description;
+                $json['category_data'][$i]['cover_picture'] = $cat_cover_picture_baseUrl.$fetchCategory->cover_picture_url;
+                
+                $getCategory_products = $this->app_model->get_all(PRODUCT_ALBUMS,['status'=>'1','category_id'=>$fetchCategory->id]);
+                if($getCategory_products->num_rows() != 0){
+                    foreach($getCategory_products->result() as $inner_loop){
+                        $json['category_data'][$i]['albums'][$j]['id']=$inner_loop->id;
+                        $json['category_data'][$i]['albums'][$j]['name']=$inner_loop->album_name;
+                        $json['category_data'][$i]['albums'][$j]['code']=$inner_loop->album_code;                
+                        $json['category_data'][$i]['albums'][$j]['description']=$inner_loop->description;                
+                        $json['category_data'][$i]['albums'][$j]['cover_picture']=$album_cover_picture_baseUrl.$inner_loop->cover_picture;
+                        $j++;
+                    }
+                    $j=0;
+                }
+                $i++;
+            }
+            
+        }else{
+            $json['status'] = 'failed';
+            $json['err_code'] = 'no_records';
+            $json['msg'] = 'No Active Category';
+        }
+        echo json_encode($json);
+    }
 
     public function detailed_view(){
         $req_obj = file_get_contents("php://input");
@@ -285,6 +329,7 @@ class Products extends CI_Controller
             $i=0;$data=NULL;
             foreach($sql->result() as $fetch){
                 $data[$i]['album_id'] = $fetch->id;
+                $data[$i]['category_name'] = $fetch->category_name;
                 $data[$i]['category_code'] = $fetch->c_ref_code;
                 $data[$i]['category_description'] = $fetch->description;
                 $i++;
@@ -326,6 +371,7 @@ class Products extends CI_Controller
                     $i=0;$data=NULL;
                     foreach($sql->result() as $fetch){
                         $data[$i]['album_id'] = $fetch->id;
+                        $data[$i]['album_name'] = $fetch->album_name;
                         $data[$i]['album_code'] = $fetch->album_code;
                         $data[$i]['album_description'] = $fetch->description;
                         $i++;

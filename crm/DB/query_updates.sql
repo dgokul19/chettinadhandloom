@@ -42,22 +42,42 @@
 -- UPDATE `ch_product_details` SET `album_id` = '6' WHERE `ch_product_details`.`id` = 14;
 -- UPDATE `ch_product_details` SET `album_id` = '6' WHERE `ch_product_details`.`id` = 13;
 
-CREATE TABLE IF NOT EXISTS `chettinad_handloom`.`ch_filter_price_range` (
-    id int(200) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    option_name varchar(50) NOT NULL,
-    range_type ENUM ('BETWEEN','ABOVE') NOT NULL,
-    value_from float(32,2) NOT NULL,
-    value_to float(32,2) NULL,
-    is_active tinyint(1) DEFAULT 1,
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP
-);
+-- CREATE TABLE IF NOT EXISTS `chettinad_handloom`.`ch_filter_price_range` (
+--     id int(200) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+--     option_name varchar(50) NOT NULL,
+--     range_type ENUM ('BETWEEN','ABOVE') NOT NULL,
+--     value_from float(32,2) NOT NULL,
+--     value_to float(32,2) NULL,
+--     is_active tinyint(1) DEFAULT 1,
+--     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+--     updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP
+-- );
+-- 
+-- INSERT INTO `ch_filter_price_range`(`option_name`, `range_type`, `value_from`, `value_to`) VALUES ('Below INR 1000', 'BETWEEN', '0', '1000');
+-- INSERT INTO `ch_filter_price_range`(`option_name`, `range_type`, `value_from`, `value_to`) VALUES ('INR 1000 - INR 2000', 'BETWEEN', '1000', '2000');
+-- INSERT INTO `ch_filter_price_range`(`option_name`, `range_type`, `value_from`) VALUES ('Above INR 2000', 'ABOVE', '2000');
+-- 
+-- UPDATE `ch_product_albums` SET `album_name` = 'album 2-1' WHERE `ch_product_albums`.`id` = 3;
 
-INSERT INTO `ch_filter_price_range`(`option_name`, `range_type`, `value_from`, `value_to`) VALUES ('Below INR 1000', 'BETWEEN', '0', '1000');
-INSERT INTO `ch_filter_price_range`(`option_name`, `range_type`, `value_from`, `value_to`) VALUES ('INR 1000 - INR 2000', 'BETWEEN', '1000', '2000');
-INSERT INTO `ch_filter_price_range`(`option_name`, `range_type`, `value_from`) VALUES ('Above INR 2000', 'ABOVE', '2000');
+INSERT INTO `ch_product_albums` (`id`, `album_code`, `album_name`, `category_id`, `description`, `status`, `created_at`, `updated_at`) VALUES (NULL, 'album-1-2', 'PRAGATHAM', '2', 'PRAGATHAM description', '1', '2017-09-26 02:28:48', '2018-07-23 01:53:52');
+INSERT INTO `ch_product_albums` (`id`, `album_code`, `album_name`, `category_id`, `description`, `status`, `created_at`, `updated_at`) VALUES (NULL, 'album-1-2', 'BUTTIDADAR', '2', 'BUTTIDADAR description', '1', '2017-09-26 02:28:48', '2018-07-23 01:53:52')
+ALTER TABLE `ch_product_albums` ADD `cover_picture` VARCHAR(255) NULL AFTER `description`;
+UPDATE `ch_product_albums` SET `cover_picture` = '36460026_1030370157110602_2100740578319794176_n.jpg' WHERE `ch_product_albums`.`id` = 5;
+UPDATE `ch_product_albums` SET `cover_picture` = '36731837_1038579179623033_4619573597017473024_n.jpg' WHERE `ch_product_albums`.`id` = 1;
+UPDATE `ch_product_albums` SET `cover_picture` = '36781641_1038579152956369_116539341961953280_n.jpg' WHERE `ch_product_albums`.`id` = 2;
+UPDATE `ch_product_albums` SET `cover_picture` = '36969090_1043567359124215_5275818160027598848_n.jpg' WHERE `ch_product_albums`.`id` = 3;
+UPDATE `ch_product_albums` SET `cover_picture` = '37014470_1043567219124229_5027679216229941248_n.jpg' WHERE `ch_product_albums`.`id` = 4;
+UPDATE `ch_product_albums` SET `cover_picture` = '37249056_1047521222062162_7313610439231799296_n.jpg' WHERE `ch_product_albums`.`id` = 6;
+UPDATE `ch_product_albums` SET `cover_picture` = '37386741_1048509735296644_6379802197378465792_n.jpg' WHERE `ch_product_albums`.`id` = 7;
+UPDATE `ch_product_albums` SET `cover_picture` = '38046165_1067608520053432_5507235623615856640_n.jpg' WHERE `ch_product_albums`.`id` = 8;
+UPDATE `ch_product_albums` SET `album_code` = 'pragatham' WHERE `ch_product_albums`.`id` = 7;
+UPDATE `ch_product_albums` SET `album_code` = 'buttidadar' WHERE `ch_product_albums`.`id` = 8;
+UPDATE `ch_product_albums` SET `description` = 'Mangalavastram caption' WHERE `ch_product_albums`.`id` = 4;
+UPDATE `ch_product_albums` SET `album_name` = 'MANGALAVASTRAM' WHERE `ch_product_albums`.`id` = 4;
+UPDATE `ch_product_albums` SET `album_code` = 'mangalavastram' WHERE `ch_product_albums`.`id` = 4;
 
-UPDATE `ch_product_albums` SET `album_name` = 'album 2-1' WHERE `ch_product_albums`.`id` = 3;
+
+
 
 
 
