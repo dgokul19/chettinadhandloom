@@ -324,6 +324,116 @@ class Products extends CI_Controller
             die;
         }
     }
+    
+    public function get_album_products(){
+        $request_method=$_SERVER["REQUEST_METHOD"];
+        $req_obj = file_get_contents("php://input");
+        $req_Arr = json_decode($req_obj,true);
+
+        /*
+        $req_Arr = [
+            'category_id'=>1,
+            'category_code'=>'pdc01'
+        ];
+        */
+
+        if($request_method == "POST"){
+            if(empty($req_Arr)){
+                $json = ['status'=>"failed",'err_code'=>'invalid_request_type','msg'=>"No Inputs"];
+                echo json_encode($json);
+                die;
+            }else{
+                $album_id = $req_Arr['album_id'];
+                $album_code = $req_Arr['album_code'];
+                
+                $check = $this->app_model->get_all(PRODUCT_ALBUMS,['id'=>$album_id,'album_code'=>$album_code],'','id, album_name, category_id, cover_picture, description, status');
+                if($check->num_rows() != 0){
+                    
+                    if($check->row()->status == 0){
+                        $json = ['status'=>"failed",'err_code'=>404,'msg'=>"Album not found"];
+                        echo json_encode($json);
+                        die;
+                    }
+                    
+                    $get_cat_details = $this->app_model->get_all(PRODUCT_CATEGORY,['id'=>$check->row()->category_id]);
+                    $album_pic_base_url = ASSETS."product-images/core/albums/";
+                    $cat_pic_base_url = ASSETS."product-images/core/category/";
+                    $metadata = [
+                        'album_id'              => $album_id,
+                        'album_code'            => $album_code,
+                        'album_name'            => $check->row()->album_name,
+                        'album_cover_picture'   => $album_pic_base_url.$check->row()->cover_picture,
+                        'album_description'     => $check->row()->description,
+                        
+                        'category_id'              => $check->row()->category_id,
+                        'category_code'            => $get_cat_details->row()->c_ref_code,
+                        'category_name'            => $get_cat_details->row()->category_name,
+                        'category_cover_picture'   => $cat_pic_base_url.$get_cat_details->row()->cover_picture_url,
+                        'category_description'     => $get_cat_details->row()->description
+                    ];
+                    
+                    $sql_avl = "SELECT * FROM `ch_product_details` 
+                        WHERE `album_id`='$album_id' AND `status`='available' AND `published`='1' ORDER BY `id` DESC";
+                    $get_avl_pd_list = $this->app_model->ExecuteQuery($sql_avl);
+                    
+                    // $sql_sold = "SELECT A.*,B.c_ref_code,B.category_name,C.album_code,C.album_name FROM `ch_product_details` as A 
+                    //     INNER JOIN `ch_product_category` as B on A.category_id=B.id INNER JOIN `ch_product_albums` as C ON A.album_id=C.id
+                    //     WHERE A.`category_id`='$category_id' AND A.`status`='sold' AND A.`created_at` >= DATE_SUB(CURDATE(), INTERVAL 2 DAY) AND A.`published`='1'";
+                    // $get_sold_pd_list = $this->app_model->ExecuteQuery($sql_avl);
+
+                    $json = ['status'=>"success",'err_code'=>NULL];
+                    $i=0;$data=NULL;
+                    $product_picture_url = ASSETS."product-images/products/";
+                    foreach($get_avl_pd_list->result() as $f1){
+                        $sql_avl_image = $this->app_model->get_all(PRODUCT_IMAGES,['is_cover_image'=>'1','pdt_p_id'=>$f1->id])->row();
+                        $item_cover_picture = $product_picture_url.$sql_avl_image->picture_url;
+
+                        $data[$i]['item_id']           = $f1->id;
+                        $data[$i]['item_code']         = $f1->product_code;
+                        $data[$i]['item_name']         = $f1->pdt_name;
+                        $data[$i]['item_description']  = $f1->pdt_description;
+                        $data[$i]['tags']              = $f1->tags;
+                        
+                        $data[$i]['item_price']            = $f1->price;
+                        $data[$i]['item_status']           = ($f1->status == "available")? TRUE:FALSE;
+                        $data[$i]['item_cover_picture']    = $item_cover_picture;
+                        $i++;
+                    }
+
+                    /*
+                    foreach($get_sold_pd_list->result() as $f2){
+                        $sql_sold_image = $this->app_model->get_all(PRODUCT_IMAGES,['is_cover_image'=>'1','pdt_p_id'=>$f2->id])->row();
+                        $item_cover_picture = $product_picture_url.$sql_sold_image->picture_url;
+                        
+                        $data[$i]['item_id']           = $f1->id;
+                        $data[$i]['item_code']         = $f1->product_code;
+                        $data[$i]['item_name']         = $f1->pdt_name;
+                        $data[$i]['item_description']  = $f1->pdt_description;
+                        $data[$i]['tags']              = $f1->tags;
+                        
+                        $data[$i]['item_price']            = $f1->price;
+                        $data[$i]['item_status']           = ($f1->status == "available")? TRUE:FALSE;
+                        $data[$i]['item_cover_picture']    = $item_cover_picture;
+
+                        $i++;
+                    }
+                    */
+                    
+                    $json = ['status'=>"success",'err_code'=>NULL,'msg'=>"$i Records Found","metadata"=>$metadata,"data"=>$data];
+                    echo json_encode($json);
+
+                }else{
+                    $json = ['status'=>"failed",'err_code'=>'invalid_request_value','msg'=>"Incorrect album ID or code"];
+                    echo json_encode($json);
+                    die;
+                }
+            }
+        }else{
+            $json = ['status'=>"failed",'err_code'=>'invalid_request_method','msg'=>"Incorrect Request Method"];
+            echo json_encode($json);
+            die;
+        }
+    }
 
     public function get_categories(){
         $request_method=$_SERVER["REQUEST_METHOD"];
