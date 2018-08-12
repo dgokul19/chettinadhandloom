@@ -445,7 +445,7 @@ class Products extends CI_Controller
                 
             $i=0;$data=NULL;
             foreach($sql->result() as $fetch){
-                $data[$i]['album_id'] = $fetch->id;
+                $data[$i]['category_id'] = $fetch->id;
                 $data[$i]['category_name'] = $fetch->category_name;
                 $data[$i]['category_code'] = $fetch->c_ref_code;
                 $data[$i]['category_description'] = $fetch->description;
@@ -539,9 +539,9 @@ class Products extends CI_Controller
 
         if($request_method == "POST"){
             $category_id    = $req_Arr['category_id'];
-            $category_code  = $req_Arr['category_code'];
+//            $category_code  = $req_Arr['category_code'];
             $album_id     = $req_Arr['album_id'];
-            $album_code     = $req_Arr['album_code'];
+//            $album_code     = $req_Arr['album_code'];
             $pRange_id      = $req_Arr['pr_option_id'];
 
             if($album_id == "all"){

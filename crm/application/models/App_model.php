@@ -53,17 +53,37 @@ class App_model extends CI_Model
                 }
             }
 
-            return $this->db->get();
+            $exe = $this->db->get();
+            if($exe){
+                return $exe;
+            }else{
+                echo json_encode(['status'=>"failed",'error'=>$this->db->error()]);die;
+            }
         }
-    }
-
-    public function authenticate($username, $password) {
-        $this->db->select()->from(USERS)->where(array('emp_code' => $username, 'password' => $password));
-        return $this->db->get();
     }
 
     public function simple_insert($table, $insert_arr) {
         return $this->db->insert($table, $insert_arr);
+    }
+    
+    public function insert_if_not_exist($table,$insert_arr,$where){
+        $temp_key = array_keys($insert_arr);
+        $temp_val = array_values($insert_arr);
+        $fields = "";
+        foreach($temp_key as $keys){
+            $fields .= "'$keys', ";
+        }
+        $field_values = "";
+        foreach($temp_val as $val){
+            $field_values .= "'$val', ";
+        }
+        
+        $temp2 = array_keys($where);
+        $sql = "INSERT INTO $table ($fields)"
+                . "SELECT * FROM (SELECT $field_values) AS tmp"
+                . "WHERE NOT EXISTS ("
+                . "SELECT name FROM $table WHERE name = 'Rupert'"
+                .") LIMIT 1;';";
     }
 
     public function simple_delete($table, $delarr) {
@@ -111,5 +131,6 @@ class App_model extends CI_Model
             return $this->db->get();
         }
     }
+    
 
 }

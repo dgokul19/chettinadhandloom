@@ -76,6 +76,16 @@ UPDATE `ch_product_albums` SET `description` = 'Mangalavastram caption' WHERE `c
 UPDATE `ch_product_albums` SET `album_name` = 'MANGALAVASTRAM' WHERE `ch_product_albums`.`id` = 4;
 UPDATE `ch_product_albums` SET `album_code` = 'mangalavastram' WHERE `ch_product_albums`.`id` = 4;
 
+ALTER TABLE `ch_app_users` CHANGE `username` `full_name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL;
+ALTER TABLE `ch_app_users` DROP `gender`, DROP `DOB`, DROP `picture_url`, DROP `profile_url`, DROP `cover_picture_url`, DROP `userType`, DROP `userProfile_status`, DROP `OTP`, DROP `otp_is_verified`;
+ALTER TABLE `ch_app_users` DROP `locale`;
+ALTER TABLE `ch_app_users` CHANGE `modified` `updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00';
+ALTER TABLE `ch_app_users` ADD `email_otp` INT(10) NULL DEFAULT NULL AFTER `last_login`, ADD `is_email_verified` TINYINT(1) NOT NULL DEFAULT '0' AFTER `email_otp`;
+ALTER TABLE `ch_app_users` CHANGE `email` `email_id` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL;
+ALTER TABLE `ch_app_users` ADD `country_code` VARCHAR(10) NOT NULL AFTER `email_id`;
+ALTER TABLE `ch_app_users` ADD UNIQUE(`email_id`);
+
+
 
 
 
