@@ -77,8 +77,8 @@ app.controller('categoryController', function($scope,$location, $rootScope, $rou
             "pr_option_id"	: params.pr_option_id || "all"
         };
         productCartApi.filter_applied (opts, function(err, response){
-            $scope.categories = angular.copy(response);
-            // console.log('$scope.categories', $scope.categories);
+            $scope.albums_data = angular.copy(response);
+            console.log('$scope.albums_data', $scope.albums_data);
             category_id = params.category_id;
             album_id	= params.album_id;
             pr_option_id	= params.pr_option_id;
