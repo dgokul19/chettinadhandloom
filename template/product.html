@@ -1,90 +1,58 @@
-
-	<div class="bannProd">
-			<header class="origMenu subpage">
-				<div class="container">
-					<button class="sideTooge layout-column layout-align-center-center">
-						<i class="fa-barr"></i>
-						<i class="fa-barr"></i>
-						<i class="fa-barr"></i>
-					</button>
-						
-					<ul class="list-unstyled userActivity layout-row">
-						<li><a class="fa fa-user-o"></a></li>
-						<li><a class="fa fa-shopping-bag"></a></li>
-					</ul>
-					
-					<div class="collapse navbar-collapse" id="myNavbar">
-						<ul class="headUl list-unstyled" layout="row" layout-align="center center">
-							<li><a href="#">Our journey</a></li>
-							<li><a href="#">Our place</a></li> 
-							<li><a href="#">What we do</a></li> 
-							<li class="logoLi">
-								<img src="assets/images/logo.png" alt=""/>
-							</li> 
-							<li><a href="#">Loom space</a></li>
-							<li><a href="#">Customer talks</a></li> 
-							<li><a href="#">Meet us</a></li> 
-						</ul>
-					</div>
-				</div>
-			</header>
-		</div>
-
-		<div class="pageCrumbs" layout="row" layout-align="center center">
-			<ul class="margin0 list-unstyled layout-row txtCenter">
-				<li><a class="active" href="">PRODUCTS</a></li>
+<header class="origMenu detailsPage">
+	<div class="container">
+		<!-- <button class="sideTooge layout-column layout-align-center-center">
+			<i class="fa-barr"></i>
+			<i class="fa-barr"></i>
+			<i class="fa-barr"></i>
+		</button> -->
+			
+		<ul class="list-unstyled userActivity layout-row">
+			<li><a class="fa fa-user-o"></a></li>
+			<li><a class="fa fa-shopping-bag"></a></li>
+		</ul>
+		
+		<div class="collapse navbar-collapse" id="myNavbar">
+			<ul class="headUl list-unstyled" layout="row" layout-align="center center">
+				<li><a href="#">Our journey</a></li>
+				<li><a href="#">Our place</a></li> 
+				<li><a href="#">What we do</a></li> 
+				<li class="logoLi">
+					<img src="assets/images/logo_1.png" alt=""/>
+				</li> 
+				<li><a href="#">Loom space</a></li>
+				<li><a href="#">Customer talks</a></li> 
+				<li><a href="#">Meet us</a></li> 
 			</ul>
 		</div>
+	</div>
+</header>
+
+<div class="pageCrumbs" layout="row" layout-align="center center">
+	<ul class="margin0 list-unstyled layout-row txtCenter">
+		<li><a href="">Home</a></li>
+		<li><a class="active" href="">loomspace</a></li>
+	</ul>
+</div>
 		
 <section class="productContainer" ng-cloak>
-	<!-- <div class="container prod_title_space">
-		<h2 class="margin0 categTitle txtCenter">COTTON SAREE</h2>
-		<h5 class="txtCenter categsubTit">Fine sarees in pure & Blended cotton silk</h5>
-	</div> -->
-
-	<div class="layout-row main_wrap" ng-if="productsLoad" ng-repeat="product in category_data">
-		<div class="flex-50">
-			<div class="relative productBox" ng-click="explore_products(product)">
-				<img class="imgMain" ng-src="{{product.cover_picture_url}}" alt=""/>
-				<a href="" class="hovBig layout-column layout-align-center-center">
-					<h2 class="margin0">{{product.category_name}}</h2>
-					<h4>{{product.description}}</h4>
-				</a>
-			</div>
-		</div>
-		<div class="flex-50 layout-row layout-wrap ">
-			<div class="flex-50" ng-repeat="item in product.products | limitTo: 4">
-				<div class="relative mproductBox ">
-					<img ng-src="{{item.picture}}" alt=""/>
-					<div class="hovBig padding10">
-						<ul class="list-unstyled addWishbtn">
-							<li><a href="" class="_white" ng-click="openDetails(item)">+ 
-								<md-tooltip md-direction="bottom">View Details</md-tooltip></a></li>
-							<!-- <li><i class="fa fa-heart-o"></i></li> -->
-						</ul>
-						<md-button class="sale pull-right">
-							<span ng-show="item.has_discount">SALE</span>
-							<span ng-hide="item.has_discount">SOLD</span>
-						</md-button>
-						<div class="prod-info">
-							<p class="pull-left">{{item.name}}</p>
-							<ul class="list-unstyled pric-info layout-row">
-								<!-- <li class="exisPric"><i class="fa fa-rupee"></i> 855.00</li> -->
-								<li><i class="fa fa-rupee"></i> {{item.price}}</li>
-							</ul>
+	<section class="main_wrap" ng-repeat="product in category_data">
+		<h1 class="txtCenter titleAlbum">{{product.name}}</h1>
+		<div class="clearfix"></div>
+		<div class="margin0 row album_row">
+			<div class="container">
+				<div class="row margin0">
+					<div class="col-sm-6" ng-repeat="album in product.albums">
+						<div class="album_div relative">
+							<img ng-src="{{album.cover_picture}}"/>
+							<div class="album_hovr_bx">
+								<h4 ng-click="explore_products(album)">{{album.name}}</h4>
+							</div>
 						</div>
-					</div>			
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	</section>
 </section>
-
-<section class="view_pr" layout="column" layout-align="center center">
-	<md-button class="viewbtn">
-		View more product
-	</md-button>
-</section>
-
 
 <div footer-template></div>

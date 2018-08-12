@@ -5,7 +5,7 @@ app.factory('productCartApi', function($http, $mdToast){
 	return{
 		get_categories : function (){
 			return $http({
-				url : base_url + 'products/category',
+				url : base_url + 'products/loomspace',
 				method : 'GET',
 			})
 		},		
@@ -22,7 +22,7 @@ app.factory('productCartApi', function($http, $mdToast){
 			})
 		},		
 		filter_get_album : function (params){
-			var opts = {"category_id" : params.album_id, "category_code" : params.category_code};
+			var opts = {"category_id" : params.album_id, "category_code" : params.album_code};
 			return $http({
 				url : base_url + 'products/get-category-albums',
 				method : 'POST',
@@ -40,9 +40,9 @@ app.factory('productCartApi', function($http, $mdToast){
 				}
 			});
 		},	
-		get_category_details : function (params, callback){
+		get_album_details : function (params, callback){
 			return $http({
-				url : base_url + 'products/list-category-products',
+				url : base_url + 'products/get-album-products',
 				method : 'POST',
 				data : JSON.stringify(params)
 			}).then(function(response){

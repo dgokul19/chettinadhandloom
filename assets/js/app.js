@@ -34,7 +34,7 @@ app.config(function($routeProvider,$locationProvider){
 			controller	: 	"prodctController"
 		})
 
-		.when("/category/:categ_id/:categ_code",{
+		.when("/category/:album_id/:album_code",{
 			templateUrl	: 	"template/category.html",
 			controller	: 	"categoryController"
 		})
@@ -54,7 +54,4 @@ app.config(function($routeProvider,$locationProvider){
 			controller	: 	"dashboardController"
 		})
 		$locationProvider.hashPrefix('');
-})
-.run(function(){
-
 })

@@ -1,5 +1,10 @@
 
-	<div class="bannProd">
+	<div class="categoryPage bannProd">
+		<img ng-src="{{category.category_cover}}" />
+		<div class="categ_details">
+			<h1 class="category_title">{{category.name}}</h1>
+			<p class="category_desc">{{category.category_description}}</p>
+		</div>
 		<header class="origMenu subpage">
 			<div class="container">
 				<button class="sideTooge layout-column layout-align-center-center">
@@ -39,14 +44,11 @@
 
 	<div class="catePage">
 		<div class="container">
-			<h2 class="margin0 categTitle txtCenter">{{title.name}}</h2>
-			<!-- <h5 class="txtCenter categsubTit">{{title.descr}}</h5> -->
-
 			<div class="filterBox relative">
 				<div class=" col-sm-4">
 					<div class="filtDiv relative">
 						<select class="margin0" ng-model="filter.category" ng-change="get_category_filter(filter.category);">
-							<option ng-repeat="categ in filter_categories" ng-value="categ.category_code">{{categ.category_description}}</option>
+							<option ng-repeat="categ in filter_categories" ng-value="categ.category_id">{{categ.category_name}}</option>
 						</select>
 						<i class="fa fa-angle-down"></i>
 					</div>
@@ -54,8 +56,8 @@
 
 				<div class=" col-sm-4">
 					<div class="filtDiv relative">
-						<select class="margin0" ng-model = "filter.album" ng-change="get_album_filter(filter)" ng-disabled="filter_album.length < 1">
-							<option ng-repeat="album in filter_album" ng-value="album">{{album.album_description}}</option>
+						<select class="margin0" ng-model = "filter.album" ng-change="get_album_filter(filter)">
+							<option ng-repeat="album in filter_album" ng-value="album.album_id">{{album.album_description}}</option>
 						</select>
 						<i class="fa fa-angle-down"></i>
 					</div>
@@ -71,12 +73,11 @@
 					</div>
 				</div>
 				<div class="clearfix"></div>
-				<!-- <a class="clear_filter" href="" ng-click="clear_filter()">clear</a> -->
 			</div>	
 
 
 			<div class="producBoxx layout-row layout-wrap">
-				<div class="categBo" ng-repeat="item in categories">
+				<div class="categBo" ng-repeat="item in albums_data">
 					<div class="relative mproductBox">
 						<img ng-src="{{item.item_cover_picture}}" alt=""/>
 						<div class="hovBig padding10">
