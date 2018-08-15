@@ -74,8 +74,7 @@ app.factory('productCartApi', function($http, $mdToast){
 					hideDelay: 3000,
 					position: 'top right fit',
 					content: title + ' : ' + messages,
-					toastClass: type ? 'success' : 'success',
-					toastClass: type ? 'error' : 'error',
+					toastClass: type ? 'success' : 'error',
 				})
 			);
 		}		

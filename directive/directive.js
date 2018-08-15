@@ -73,7 +73,7 @@ app.directive('footerTemplate',function(){
 							'</div>'+
 						'</div>'
     };
-})
+});
 app.directive('menuToggle',function(){
 	 return {
           link: function ($scope, elem, attrs) {
@@ -82,4 +82,4 @@ app.directive('menuToggle',function(){
               })
           }
       };
-})
+});

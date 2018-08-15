@@ -39,10 +39,7 @@ div,select,input,option,table,tr,td{
 	z-index: 999;	
 }
 .loader img{
-	width:100px;
-	position: absolute;
-	top:37%;
-	left:45%;
+	width:300px;
 }
 .txtCenter{
 	text-align: center !important;
@@ -450,7 +447,7 @@ ul.userActivity a{
 	background-color: rgba(0,0,0,0.1);
 }
 .mproductBox{
-	height: 281px;
+	height: 340px;
 	overflow: hidden;
 }
 .mproductBox img{
@@ -466,18 +463,25 @@ ul.userActivity a{
 	left:0px;
 	transition: 0.4s linear all;
 	background-color: rgba(0,0,0,0.3);
+	display: flex;
+	justify-content: center;
 }
-.hovBig h2{
+.albums_title_dv{
+	height: 160px;
+	margin: auto;
 	color: #fff;
-	text-transform: uppercase;
-	font-size: 26px;
 }
-.hovBig h4{
-	color: #fff;
-	font-style: italic;
-	font-family: Aulyars;
-	font-size: 30px;
+.albums_title_dv h4{
+	font-size: 40px;
+	font-family: Humanistic;
+	text-align: center;
 	margin-top:10px;
+}
+.albums_title_dv p {
+	text-align: center;
+}
+.albums_title_dv p.rating{
+	font-size: 21px;
 }
 ul.addWishbtn{
 	float: left;
@@ -490,16 +494,6 @@ ul.addWishbtn li {
 }
 ul.addWishbtn li i.fa{
 	font-size: 18px;
-}
-.hovBig .md-button.sale{
-	background:transparent;
-	border:2px solid #fff;
-	color: #fff;
-	transition: 0.3s linear all;
-}
-.hovBig .md-button.sale:hover{
-	background-color: #fff;
-	color: #282828;
 }
 .hovBig .prod-info{
 	position: absolute;
@@ -521,10 +515,21 @@ ul.addWishbtn li i.fa{
 	text-decoration:line-through;
 }
 .mproductBox .hovBig{
-	background-color: transparent;
+	visibility: hidden;
 }
 .mproductBox:hover .hovBig{
-	background-color : rgba(0,0,0,0.3);
+	visibility: visible;
+	background-color : rgba(232, 212, 136, 0.88);
+}
+.albums_title_dv{
+	visibility: hidden;
+	transform: translateY(10%);
+	transition: 0s visiblity, 0.2s transform;
+	transition-timing-function: cubic-bezier(0.39, 0.575, 0.565, 1);
+}
+.mproductBox:hover .albums_title_dv{
+	visibility: visible;
+	transform: translateY(0%);
 }
 section.view_pr{
 	padding: 6em 0px;
@@ -649,8 +654,15 @@ md-input-container.subscrbInp:not(.md-input-invalid).md-input-focused label{
 	font-size: 66px;
 	font-family: Aulyars;
 	margin-bottom: -5px;
+	text-transform: capitalize;
 }
-
+.norecords{
+	color: rgb(244, 67, 54);
+    font-family: Humanistic;
+    text-align: center;
+    width: 100%;
+    font-size: 36px;
+}
 .categ_details p{
 	font-size: 16px;
     line-height: 29px;
@@ -718,8 +730,9 @@ md-input-container.subscrbInp:not(.md-input-invalid).md-input-focused label{
 	margin-right:-10px;
 }
 .categBo{
-	width: 25%;
-	padding: 10px;
+	width: 31%;
+	margin: 0px 1%;
+	padding:10px 0px;
 }
 .pagintn{
 	padding: 10em 0px 0;
@@ -1662,3 +1675,4 @@ span.goBack{
 	font-family: Humanistic;
   	transform: translateY(-50%);
 }
+

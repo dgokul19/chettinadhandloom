@@ -31,8 +31,13 @@
 	.categBo{
 		width: 50%;
 	}
-
 	.categBo .mproductBox{
 		height: 170px;
+	}
+}
+
+@media(min-width: 600px){
+	.catePage > .container{
+		width: 90%;
 	}
 }

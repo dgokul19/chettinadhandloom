@@ -4,6 +4,7 @@ app.controller('categoryController', function($scope,$location, $rootScope, $rou
     var category_id = 'all';
     var pr_option_id = 'all';
 
+    $scope.loader = true;
     $scope.filter = {};
     $scope.filter_album = [];
     
@@ -22,7 +23,6 @@ app.controller('categoryController', function($scope,$location, $rootScope, $rou
             "album_description" : _details.album_description,
             "album_id" : _details.album_id
         };
-
         get_albums({"album_id" : $scope.category.category_id, "album_code" : $scope.category.code});
         $scope.filter = {"category" : $scope.category.category_id, "album" : $scope.albums_details.album_id};
     };
@@ -78,19 +78,23 @@ app.controller('categoryController', function($scope,$location, $rootScope, $rou
         };
         productCartApi.filter_applied (opts, function(err, response){
             $scope.albums_data = angular.copy(response);
-            console.log('$scope.albums_data', $scope.albums_data);
-            category_id = params.category_id;
-            album_id	= params.album_id;
+            category_id     = params.category_id;
+            album_id	    = params.album_id;
             pr_option_id	= params.pr_option_id;
+            load_page_crumb(
+                {"category_name" : $scope.albums_data && $scope.albums_data[0].category_name || '',
+                "album_name" : $scope.albums_data && $scope.albums_data[0].album_name || ''},
+            );
         });
     };
 
     var load_page_crumb = function (objects){
         $scope.pages = [];
         if(objects && objects.category_name)
-            $scope.pages.push(objects.album_name);
+            $scope.pages.push(objects.category_name);
         if(objects && objects.category_name)
             $scope.pages.push(objects.album_name);
+        // console.log(' $scope.pages',  $scope.pages);
     };
 
     $scope.load_products = function (opts){
@@ -98,7 +102,8 @@ app.controller('categoryController', function($scope,$location, $rootScope, $rou
             if (err) return console.log(err);
             if(response.status === 'success'){
                 $scope.albums_data = response.data;
-                // load_page_crumb(response.metadata);
+                $scope.loader = false;
+                load_page_crumb(response.metadata);
                 setCategoryDetails(response.metadata);
             }
         });

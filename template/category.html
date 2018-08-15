@@ -1,9 +1,11 @@
-
+	<div class="loader" layout="row" layout-align="center center" ng-if="loader">
+		<img src="assets/images/dash-loader.gif">
+	</div>
 	<div class="categoryPage bannProd">
-		<img ng-src="{{category.category_cover}}" />
+		<img ng-src="{{albums_details.album_cover}}" />
 		<div class="categ_details">
-			<h1 class="category_title">{{category.name}}</h1>
-			<p class="category_desc">{{category.category_description}}</p>
+			<h1 class="category_title">{{albums_details.name}}</h1>
+			<p class="category_desc">{{albums_details.album_description}}</p>
 		</div>
 		<header class="origMenu subpage">
 			<div class="container">
@@ -77,22 +79,15 @@
 
 
 			<div class="producBoxx layout-row layout-wrap">
+				<h5 ng-hide="albums_data.length > 0" class="norecords">Oops !! No records found</h5>
 				<div class="categBo" ng-repeat="item in albums_data">
 					<div class="relative mproductBox">
 						<img ng-src="{{item.item_cover_picture}}" alt=""/>
-						<div class="hovBig padding10">
-							<ul class="list-unstyled addWishbtn">
-								<li ng-click="openDetails(item)">+</li>
-							</ul>
-							<md-button class="sale pull-right">
-								<span ng-if="item.item_status">SALE</span>
-								<span ng-if="!item.item_status">SOLD</span>
-							</md-button>
-							<div class="prod-info">
-								<p class="pull-left">{{item.item_name}}</p>
-								<ul class="list-unstyled pric-info layout-row">
-									<li><i class="fa fa-rupee"></i> {{item.item_price}}</li>
-								</ul>
+						<div class="hovBig padding10" ng-click="openDetails(item)">
+							<div class="albums_title_dv">
+								<h4>{{item.item_name}}</h4>
+								<p>{{item.item_description}}</p>
+								<p class="rating">Rs : {{item.item_price}}</p>
 							</div>
 						</div>	
 					</div>
