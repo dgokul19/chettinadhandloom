@@ -484,13 +484,14 @@ class Products extends CI_Controller
                 $check = $this->app_model->get_all(PRODUCT_CATEGORY,['id'=>$category_id,'c_ref_code'=>$category_code],'','category_name');
                 if($check->num_rows() != 0){
                     $sql = $this->app_model->get_all(PRODUCT_ALBUMS,['category_id'=>$category_id,'status'=>1]);
-                    
+                    $album_pic_base_url = ASSETS."product-images/core/albums/";
                     $i=0;$data=NULL;
                     foreach($sql->result() as $fetch){
                         $data[$i]['album_id'] = $fetch->id;
                         $data[$i]['album_name'] = $fetch->album_name;
                         $data[$i]['album_code'] = $fetch->album_code;
                         $data[$i]['album_description'] = $fetch->description;
+                        $data[$i]['album_cover_picture'] = $album_pic_base_url.$fetch->cover_picture;
                         $i++;
                     }
                     $json = ['status'=>"success",'err_code'=>NULL,'msg'=>"$i Records Found","data"=>$data];
