@@ -1,0 +1,207 @@
+<header class="origMenu detailsPage">
+	<div class="container">
+		<button class="sideTooge layout-column layout-align-center-center">
+			<i class="fa-barr"></i>
+			<i class="fa-barr"></i>
+			<i class="fa-barr"></i>
+		</button>
+			
+		<ul class="list-unstyled userActivity layout-row">
+			<li><a class="fa fa-user-o"></a></li>
+			<li><a class="fa fa-shopping-bag" ng-class="{'_pink' : !cartIsEmpty, '_black' : cartIsEmpty}"></a></li>
+		</ul>
+		
+		<div class="collapse navbar-collapse" id="myNavbar">
+			<ul class="headUl list-unstyled" layout="row" layout-align="center center">
+				<li><a href="#">Our journey</a></li>
+				<li><a href="#">Our place</a></li> 
+				<li><a href="#">What we do</a></li> 
+				<li class="logoLi dets">
+					<img src="assets/images/logo_1.png" alt=""/>
+				</li> 
+				<li><a href="#">Loom space</a></li>
+				<li><a href="#">Customer talks</a></li> 
+				<li><a href="#">Meet us</a></li> 
+			</ul>
+		</div>
+	</div>
+</header>
+
+<div class="pageCrumbs" layout="row" layout-align="center center">
+	<ul class="margin0 list-unstyled layout-row txtCenter">
+		<li><a href="">Home</a></li>
+        <li><a class="active" href="">Shopping Cart</a></li>
+	</ul>
+</div>
+
+<section class="cart_sectn catePage">
+	<div class="container">
+        <div class="cart_section">
+            <h1>Shopping Cart</h1>
+            <div class="cart_div col-sm-9">
+                <div class="cart_tems">
+                    <div class="layout-row cart_header">
+                        <div class="col-sm-2 txtCenter">
+                            <h4>Products</h4>
+                        </div>    
+                        <div class="col-sm-4 txtCenter">
+                            <h4>Details</h4>
+                        </div>    
+                        <div class="col-sm-2 txtCenter">
+                            <h4>Qty</h4>
+                        </div>    
+                        <div class="col-sm-2 txtCenter">
+                            <h4>Subtotal</h4>
+                        </div> 
+                    </div>
+                    
+                    <div class="cart_lines">
+                        <div class="col-sm-2 prod_images layout-column layout-align-center-center padding0">
+                            <img src="http://localhost/chettinadhandloom/crm/assets/product-images/products/21557711_862472533900366_6771048742462787759_n.jpg">
+                        </div>
+                        <div class="cart_desc_bx col-sm-4">
+                            <h3>Pragatham</h3>
+                            <p>Colours of Navarathri - one of the best and famous weaves of Chettinad cotton, fusion of checks and small temples ( small korvai's ). With running blouse 6.2 mts.</p>
+                            <h2 class="textOfPrice marginTop10">Rs.1200</h2>
+                        </div>
+                        <div class="col-sm-2 cart_desc_bx padding0 layout-column layout-align-center-center detsQty">
+                            <input type="text" placeholder="qty" ng-model="products.qty" maxlength="3"/>
+                        </div>
+                        <div class="col-sm-2 cart_desc_bx padding0 layout-column layout-align-center-center">
+                            <h2 class="textOfPrice marginTop10">Rs.1200</h2>
+                        </div>
+                        <div class="col-sm-2 cart_desc_bx padding0 layout-column layout-align-center-center">
+                        <i class="fa fa-close removeItems" ng-click="removeItem()"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="cart_lines">
+                        <div class="col-sm-2 prod_images layout-column layout-align-center-center padding0">
+                            <img src="http://localhost/chettinadhandloom/crm/assets/product-images/products/21557711_862472533900366_6771048742462787759_n.jpg">
+                        </div>
+                        <div class="cart_desc_bx col-sm-4">
+                            <h3>Pragatham</h3>
+                            <p>Colours of Navarathri - one of the best and famous weaves of Chettinad cotton, fusion of checks and small temples ( small korvai's ). With running blouse 6.2 mts.</p>
+                            <h2 class="textOfPrice marginTop10">Rs.1200</h2>
+                        </div>
+                        <div class="col-sm-2 cart_desc_bx padding0 layout-column layout-align-center-center detsQty">
+                            <input type="text" placeholder="qty" ng-model="products.qty" maxlength="3"/>
+                        </div>
+                        <div class="col-sm-2 cart_desc_bx padding0 layout-column layout-align-center-center">
+                            <h2 class="textOfPrice marginTop10">Rs.1200</h2>
+                        </div>
+                        <div class="col-sm-2 cart_desc_bx padding0 layout-column layout-align-center-center">
+                        <i class="fa fa-close removeItems" ng-click="removeItem()"></i>
+                        </div>
+                    </div>
+                </div> 
+                <br>
+                <div class="address_cart marginTop20">  
+                    <h2>Select address</h2>
+                    <div class="col-sm-6 padding0">
+                        <div class="addrss_list marginBottom10 padding10 md-whiteframe-1dp">
+                            <div class="icon_addr pull-left" layout="column" layout-align="center center">
+                               <i class="fa fa-map-marker fa-4x active"></i>
+                            </div>
+                            <div class="addr_details pull-left marginLeft10">
+                                <p>F2/152A, Thirugnasambadhar Street,</p>
+                                <p>Thiruvalleswarar Nagar,Thirumangalam</p>
+                                <p>Chennai, India - 600032.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="addrss_list active padding10 md-whiteframe-1dp">
+                            <div class="icon_addr pull-left" layout="column" layout-align="center center">
+                               <i class="fa fa-map-marker fa-4x active"></i>
+                            </div>
+                            <div class="addr_details pull-left marginLeft10">
+                                <p>F2/152A, Thirugnasambadhar Street,</p>
+                                <p>Thiruvalleswarar Nagar,Thirumangalam</p>
+                                <p>Chennai, India - 600032.</p>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <div class="marginTop20 _black" ng-click="show_new = !show_new">
+                            <span ng-hide="show_new">Not here !! Create new</span> 
+                            <span ng-show="show_new">Close</span> 
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <form class="address_frm" ng-show="show_new">
+                            <md-input-container class="inputBoxed marginTop20">
+                                <label>Full Name</label>
+                                <input type="text" ng-model="addresses.name">
+                            </md-input-container>
+                        
+                            <md-input-container class="inputBoxed marginTop20">
+                                <label>Address Line 1</label>
+                                <input type="text" ng-model="addresses.addrLine1">
+                            </md-input-container>
+                        
+                            <md-input-container class="inputBoxed marginTop20">
+                                <label>Address Line 2</label>
+                                <input type="text" ng-model="addresses.addrLine2">
+                            </md-input-container>
+                            
+                            <md-input-container class="inputBoxed marginTop20">
+                                <label>City</label>
+                                <input type="text" ng-model="addresses.city">
+                            </md-input-container>
+                            
+                            <md-input-container class="inputBoxed marginTop20">
+                                <label>State</label>
+                                <input type="text" ng-model="addresses.state">
+                            </md-input-container>
+                            
+                            <md-input-container class="inputBoxed marginTop20">
+                                <label>Country</label>
+                                <input type="text" ng-model="addresses.country">
+                            </md-input-container>
+                            
+                            <md-input-container class="inputBoxed marginTop20">
+                                <label>Zipcode</label>
+                                <input type="text" ng-model="addresses.zipcode">
+                            </md-input-container>
+                            <div class="clearfix"></div>
+                            <br>
+                            <md-button class=" margin0 md-primary cart_btn subscrbBtn">SUBMIT </md-button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-3 cart_summary">
+                <div class="coupon_disc marginTop20">
+                    <h3>Cart Summary</h3>
+                    <ul class="pric_lis_li list-unstyled layout-column">
+                        <li>
+                            <div class="pull-left">Sub Total</div>
+                            <div class="pull-right pric_ran">1200.00</div>
+                        </li>
+                        <li>
+                            <div class="pull-left">Shipping Amount</div>
+                            <div class="pull-right pric_ran">15.00</div>
+                        </li>
+                    </ul>
+                    <span class="layout-column marginTop10">
+                        <md-button class=" margin0 md-primary cart_btn subscrbBtn">PROCEED </md-button>
+                    </span>
+                </div>
+                <hr>
+                <div class="coupon_disc marginTop20">
+                    <h3>Need Help ?</h3>
+                    <p>+91 (812) 270 1839</p>
+                    <p>Mon-Fri, 8am - 10pm,ET</p>
+                    <p>Sat-Sun, 9am - 8pm,ET</p>
+                    <span class="layout-column marginTop10">
+                        <md-button class=" margin0 md-primary subscrbBtn cart_btn">Shipping Information</md-button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div footer-template></div>

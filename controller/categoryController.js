@@ -43,17 +43,32 @@ app.controller('categoryController', function($scope,$location, $rootScope, $rou
             $scope.price_ranges = response.data.data;
         });
     }
-
+    
+    var get_category_code = function (category_id, cb){
+        var uniq = {}; 
+        for(var i in $scope.filter_categories){
+            if($scope.filter_categories[i].category_id == category_id){
+                uniq["album_id"] =  $scope.filter_categories[i].category_id;
+                uniq["album_code"] =  $scope.filter_categories[i].category_code;
+            }
+        }
+        cb(uniq);
+    };
 
     $scope.get_category_filter = function(id){
+        $scope.loader = true;
         var opts = {
             "category_id"   : id, 
             "album_id"		: "all",
         };
-        $scope.filter_applied(opts);
+        get_category_code(id, function(resp){
+            get_albums(resp);
+            $scope.filter_applied(opts);
+        });
     }
 
     $scope.get_album_filter = function(args){
+        $scope.loader = true;
         var opts = {
             "category_id"   : args.category || "all", 
             "album_id"		: args.album || "all",
@@ -62,6 +77,7 @@ app.controller('categoryController', function($scope,$location, $rootScope, $rou
     }
     
     $scope.get_price_filter = function (price_id){
+        $scope.loader = true;
         var opts = {
             "category_id"   : category_id, 
             "album_id"		: album_id,
@@ -85,6 +101,7 @@ app.controller('categoryController', function($scope,$location, $rootScope, $rou
                 {"category_name" : $scope.albums_data && $scope.albums_data[0].category_name || '',
                 "album_name" : $scope.albums_data && $scope.albums_data[0].album_name || ''},
             );
+             $scope.loader = false;
         });
     };
 

@@ -59,7 +59,7 @@
 				<div class=" col-sm-4">
 					<div class="filtDiv relative">
 						<select class="margin0" ng-model = "filter.album" ng-change="get_album_filter(filter)">
-							<option ng-repeat="album in filter_album" ng-value="album.album_id">{{album.album_description}}</option>
+							<option ng-repeat="album in filter_album" ng-value="album.album_id">{{album.album_name}}</option>
 						</select>
 						<i class="fa fa-angle-down"></i>
 					</div>
@@ -68,7 +68,7 @@
 				<div class=" col-sm-4">
 					<div class="filtDiv relative">
 						<select class="margin0" ng-model="filter.price" ng-change="get_price_filter(filter.price)">
-							<option value="">Sort by</option>
+							<option value="all">Sort by</option>
 							<option ng-repeat="price in price_ranges" ng-value="price.pr_option_id">{{price.pr_option_name}}</option>
 						</select>
 						<i class="fa fa-angle-down"></i>

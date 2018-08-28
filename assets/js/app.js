@@ -49,6 +49,11 @@ app.config(function($routeProvider,$locationProvider){
 			controller	: 	"loginController"
 		})
 
+		.when("/cart",{
+			templateUrl	: 	"template/cart/cart.html",
+			controller	: 	"cartController"
+		})
+
 		.when("/myaccount",{
 			templateUrl	: 	"template/account/dashboard.html",
 			controller	: 	"dashboardController"
