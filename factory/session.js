@@ -12,6 +12,12 @@ app.service('userSession', ['$rootScope','$localStorage', function ($rootScope, 
                return $localStorage.cart;
             },
             
+            setUserSession : function(user, cb){
+                this.user = user;
+                $localStorage.user = this.user;
+                cb();
+            },
+
             getUserSession : function(){
                 return $localStorage.user;
             },

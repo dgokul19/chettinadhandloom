@@ -1308,6 +1308,14 @@ i.iconLoginPage{
     right: 8px;
     font-size: 18px;
 }
+.form_mobl{
+	padding-left:  38px;
+}
+span.country_cde{
+	position: absolute;
+	left : 10px;
+	top :12px;
+}
 .md-button.loginBn{
 	width:100%;
 	height:40px;

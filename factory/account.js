@@ -1,4 +1,7 @@
-app.factory('socialfac',function($http){
+
+var base_url = 'http://'+window.location.hostname + window.location.pathname + 'crm/api/';
+
+app.factory('accountFactory',function($http){
 	return{
 		loginDetails : function(data) {
 	    	return $http({
@@ -26,15 +29,15 @@ app.factory('socialfac',function($http){
 	    },	
 	    useregister : function(data) {
 	    	return $http({
-	    		url: 'http://192.168.1.107/chettinad/app/checklogin/sign_up',
+	    		url: base_url + 'user/signup',
 	            method: 'POST',
 	            data:JSON.stringify(data),
-	             headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
-	    	});
+	            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+	    	})
 	    },
-	    loginDets : function(data) {
+	    userAuthenticate : function(data) {
 	    	return $http({
-	    		url: 'http://192.168.1.107/chettinad/app/checklogin/authenticate',
+	    		url: base_url + 'user/authenticate',
 	            method: 'POST',
 	            data:JSON.stringify(data),
 	             headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
@@ -42,6 +45,7 @@ app.factory('socialfac',function($http){
 	    }	
 	}	
 });
+
 app.factory('emailSubbs',function($http){
 	return{
 		getDetails : function(data) {
@@ -53,6 +57,7 @@ app.factory('emailSubbs',function($http){
 	    },
 	}	
 });
+
 app.factory('userAccount', function($http){
 	return {
 		userRegistr   : function(data){

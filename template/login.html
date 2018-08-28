@@ -35,72 +35,58 @@
 			<form name="logForm" class="gen_ogin relative" ng-hide="signSoc" ng-cloak>
 	        	<md-input-container class="inputBoxed">
 	        		<label>Email or Mobile no</label>
-	        		<input type="text" ng-model="userEmail" required>
+	        		<input type="text" ng-model="user.email_id" required>
 	        		<i class="ti-email iconLoginPage"></i>
 	        	</md-input-container>
 
 	        	<md-input-container class="inputBoxed marginTop20">
 	        		<label>Password</label>
-	        		<input type="password" ng-model="userPwd" required>
+	        		<input type="password" ng-model="user.password" required>
 	        		<i class="ti-unlock iconLoginPage"></i>
 	        	</md-input-container>
 
-				<md-button class="loginBn" ng-disabled="logForm.$invalid" ng-click="logiFunc()">login</md-button>
+				<md-button class="loginBn" ng-disabled="logForm.$invalid" ng-click="authenticateMe(user)">login</md-button>
 				<span class="layout-row">
-		        	<a class="text-danger txtCenter displayMe">forgot password</a>	<span class="flex"></span> 
-		        	<a class="text-danger txtCenter displayMe" ng-click="signSoc = !signSoc">Create account</a>	
+		        	<a class="text-danger txtCenter displayMe" href="">forgot password</a>	<span class="flex"></span> 
+		        	<a class="text-danger txtCenter displayMe" href="" ng-click="signSoc = !signSoc">Create account</a>	
 		    	</span>
 	        </form>
 
 	        <form ng-show="signSoc" class="gen_ogin relative" name="signUpform" ng-cloak>
 	        	<span class="goBack ti-angle-left" ng-click="signSoc = false"></span>
-	        	<input type="hidden" ng-model="user.user_id">
-	        	<md-radio-group class="layout-row" ng-model="user.userType" required>
-					<md-radio-button value="merchant">Merchant</md-radio-button>
-			      	<md-radio-button value="customer">Customer </md-radio-button>
-			    </md-radio-group>
-
+				<div class="error_disply" ng-if="error_msg"></div>
 	        	<md-input-container class="inputBoxed marginTop20">
-	        		<label>First Name</label>
-	        		<input type="text" ng-model="user.first_name" required>
+	        		<label>Full Name</label>
+	        		<input type="text" ng-model="user.fullname" required>
 	        		<i class="ti-user iconLoginPage"></i>
-	        	</md-input-container>
-
-	        	<md-input-container class="inputBoxed marginTop20">
-	        		<label>Last Name</label>
-	        		<input type="text" ng-model="user.last_name" required>
-	        		<i class="ti-user iconLoginPage"></i>
-	        	</md-input-container>
-
+				</md-input-container>
+				
 	        	<md-input-container class="inputBoxed marginTop20">
 	        		<label>Email</label>
-	        		<input type="email" ng-model="user.email" required>
+	        		<input type="email" ng-model="user.email_id" required>
 	        		<i class="ti-email iconLoginPage"></i>
 	        	</md-input-container>
 
-	        	<md-input-container class="inputBoxed marginTop20">
-	        		<label>Phone</label>
+	        	<md-input-container class="inputBoxed marginTop20 form_mobl">
+					<!-- <label>Phone</label> -->
+					<span class="country_cde">+91</span>
 	        		<input type="text" ng-model="user.mobile_no" required>
 	        		<i class="ti-mobile iconLoginPage"></i>
 	        	</md-input-container>
 
 				<md-input-container class="inputBoxed marginTop20">
 	        		<label>Password</label>
-	        		<input type="password" ng-model="user.userPwd" required>
+	        		<input type="password" ng-model="user.password" required>
 	        		<i class="ti-unlock iconLoginPage"></i>
 	        	</md-input-container>
 
-	        	<md-input-container class="inputBoxed marginTop20">
+	        	<!-- <md-input-container class="inputBoxed marginTop20">
 	        		<label>Retype Password</label>
-	        		<input type="password" ng-model="user.userrePwd" ng-pattern="user.userPwd" required>
+	        		<input type="password" ng-model="user.repassword" ng-pattern="user.userPwd" required>
 	        		<i class="ti-unlock iconLoginPage"></i>
-	        	</md-input-container>
+	        	</md-input-container> -->
 
-	        	<md-switch ng-model="termsAccept" aria-label="Switch 1">
-				    I agree the terms & conditions.
-				</md-switch>
-
-				<md-button type="submit" class="loginBn" ng-disabled="signUpform.$invalid" ng-click="regisForm()">register now</md-button>
+				<md-button type="submit" class="loginBn" ng-disabled="signUpform.$invalid" ng-click="regisForm(user)">register now</md-button>
 	        </form>
       	</div>
 	</div>
