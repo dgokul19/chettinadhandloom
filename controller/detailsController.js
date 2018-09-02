@@ -3,15 +3,14 @@ app.controller('detailsController', function($scope,$mdToast,$rootScope, $timeou
     var product_id = atob($routeParams.product_id);
     var product_code = $routeParams.product_code;
     var product_name = $routeParams.product_name;
-
     $scope.product_name = angular.copy(product_name);
     var params = {
-        "product_id" : product_id,
-        "product_code" : product_code
+        "product_id" : $routeParams.product_id,
+        "product_code" : $routeParams.product_code,
+        "product_name" : $routeParams.product_name
     }
     $scope.cartIsEmpty = true;
     $scope.cart = [];
-
     $scope.change_qty = function (qty, type){
         if(type === 'add'){
             $scope.products.qty = parseInt(qty) + 1;
@@ -38,13 +37,17 @@ app.controller('detailsController', function($scope,$mdToast,$rootScope, $timeou
     };
 
     $scope.addtoCart = function (product){
-        if(!_.isEmpty(product)){
-            userSession.setSession(product, function(data){
-                $scope.cartIsEmpty = false;
-            });
-        } else
-            return productCartApi.showToast('error', 'No Products were added !!');
-       
+        if(userSession.getUserSession()){
+            location.href = "#/cart"
+        } else {
+            var access_ques = confirm("Please login to add the products into cart");
+            if(access_ques){
+                userSession.setParamCart(params, function(status){
+                    if(status)
+                        location.href = "#/login";
+                });
+            }
+        }
     }
     $scope.continue_shopping = function(){
         // userSession.clearState();
@@ -60,6 +63,9 @@ app.controller('detailsController', function($scope,$mdToast,$rootScope, $timeou
         });
     }
     
+    $scope.goCart = function (){
+        // if()
+    };
    
-        $scope.get_product_details();
+    $scope.get_product_details();
 });

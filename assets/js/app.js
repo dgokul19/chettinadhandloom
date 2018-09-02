@@ -1,5 +1,5 @@
 var app = angular.module('chettiEcomm', 
-	['ngMaterial','ngAnimate', 'ngMessages','ngRoute','ngStorage','jkAngularRatingStars','angularGrid']);
+	['ngMaterial','ngAnimate','ngMessages','ngRoute','ngStorage','jkAngularRatingStars','angularGrid']);
 
 app.config(function($routeProvider,$locationProvider){
 

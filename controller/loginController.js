@@ -30,8 +30,12 @@ app.controller('loginController',function($scope, $mdToast, $rootScope, $locatio
 		accountFactory.userAuthenticate(opts).then(function(resp){
 			if(resp.data.status === 'success'){
                 userSession.setUserSession(resp.data.data, function(){
+                    var param = userSession.getParamCart()
                     showToast('success', 'Success', 'User Authenticated !!');
-                    console.log('user', userSession.getUserSession());
+                    if(!param)
+                        location.href="#/loomspace";
+                    else
+                        location.href="#/products/"+ param.product_id + '/' + param.product_code + '/' + param.product_name;
                 });
 			} else {
                 showToast('error', 'Error', resp.data.msg);
