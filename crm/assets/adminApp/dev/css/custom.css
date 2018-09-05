@@ -32,6 +32,9 @@ ol a{
 .blank-page .content-wrapper .flexbox-container{
     height: 80vh !important;
 }
+.control-btn-pad{
+    padding : 0em 0em 0em 0.7em !important
+}
 
 @media (min-width: 1200px){
     .container {
