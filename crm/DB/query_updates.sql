@@ -85,6 +85,7 @@
 -- ALTER TABLE `ch_app_users` ADD `country_code` VARCHAR(10) NOT NULL AFTER `email_id`;
 -- ALTER TABLE `ch_app_users` ADD UNIQUE(`email_id`);
 
+CREATE TABLE IF NOT EXISTS `chettinad_handloom`.`ch_user_addresses` ( `id` INT(255) NOT NULL AUTO_INCREMENT , `user_id` INT(255) NOT NULL ,`title` VARCHAR(10), `full_name` VARCHAR(200) NOT NULL , `address_line_1` VARCHAR(255) NOT NULL , `address_line_2` VARCHAR(255) NULL , `city` VARCHAR(200) NOT NULL , `state` VARCHAR(200) NOT NULL , `country` VARCHAR(200) NOT NULL , `land_mark` VARCHAR(255) NOT NULL , `pincode` INT(10) NOT NULL , `ph_country_code` VARCHAR(10) NOT NULL , `phone_number` BIGINT(100) NOT NULL , `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `modified_at` TIMESTAMP on update CURRENT_TIMESTAMP NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
 
 
 

@@ -97,3 +97,4 @@ define('PRODUCT_IMAGES',TBL_PRFFIX.'product_images');
 define('FILTER_PRICE_RANGE',TBL_PRFFIX.'filter_price_range');
 
 define('USER_CART',TBL_PRFFIX.'user_cart');
+define('USER_ADDRESSES',TBL_PRFFIX.'user_addresses');

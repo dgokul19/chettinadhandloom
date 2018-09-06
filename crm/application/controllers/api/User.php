@@ -6,7 +6,7 @@ class User extends CI_Controller
         parent::__construct();
     }
     
-    private function first_run($method){
+    private function first_run($method,$req_all=true){
         $req_obj = file_get_contents("php://input");
         $req_Arr = json_decode($req_obj,true);
         
@@ -22,18 +22,20 @@ class User extends CI_Controller
             die;
         }
         
-        $i=0;$empty_key=[];
-        foreach($req_Arr as $index=>$value){
-            if(empty($value)){
-                $empty_key[$i] = $index;
-                $i++;
+        if($req_all == true){
+            $i=0;$empty_key=[];
+            foreach($req_Arr as $index=>$value){
+                if(empty($value)){
+                    $empty_key[$i] = $index;
+                    $i++;
+                }
             }
-        }
-        
-        if(!empty($empty_key)){
-            $json = ['status'=>"failed",'err_code'=>'invalid_request_value','msg'=>"Empty values in request",'empty_index'=>$empty_key];
-            echo json_encode($json);
-            die;
+
+            if(!empty($empty_key)){
+                $json = ['status'=>"failed",'err_code'=>'invalid_request_value','msg'=>"Empty values in request",'empty_index'=>$empty_key];
+                echo json_encode($json);
+                die;
+            }
         }
         
         return $req_Arr;
@@ -158,7 +160,7 @@ class User extends CI_Controller
                     }else{
                         $exe = $this->app_model->simple_update(USER_CART,$insert_arr,['id'=>$redundant_check->row()->id]);
                         if($exe){
-                            $json = ['status'=>"failed",'err_code'=>NULL,'msg'=>'Product has been updated in the cart'];
+                            $json = ['status'=>"success",'err_code'=>NULL,'msg'=>'Product has been updated in the cart'];
                         }else{
                             $json = ['status'=>"failed",'err_code'=>"sql_error",'msg'=>$this->db->error()];
                         }
@@ -182,7 +184,7 @@ class User extends CI_Controller
         $fetch = $this->app_model->get_all(APP_USERS,['id'=>$user_id]);
         if($fetch->num_rows() != 0){
             
-            echo $sql_state = "SELECT A.id,A.product_id,A.quantity,B.product_code,B.pdt_name,B.pdt_description,B.unit,B.price,B.available_quantity,B.status,B.published,C.picture_url FROM `ch_user_cart` as A "
+            $sql_state = "SELECT A.id,A.product_id,A.quantity,B.product_code,B.pdt_name,B.pdt_description,B.unit,B.price,B.available_quantity,B.status,B.published,C.picture_url FROM `ch_user_cart` as A "
                     . "INNER JOIN `ch_product_details` as B ON A.product_id=B.id LEFT JOIN `ch_product_images` as C ON A.product_id=C.pdt_p_id WHERE A.user_id='$user_id' AND C.is_cover_image=1 AND B.published=1";
             $sql_exe = $this->app_model->ExecuteQuery($sql_state);
             $data = [];$i=0;
@@ -216,6 +218,80 @@ class User extends CI_Controller
             $json = ['status'=>"failed",'err_code'=>"invalid_user_id",'msg'=>"Please Login again"];
         }
         echo json_encode($json);
+    }
+    
+    public function save_address(){
+        $api_req = $this->first_run('POST',false);
+        
+        $user_id_enc = $api_req['user_id'];
+        $user_id = $this->app_model->decode($user_id_enc);
+        
+        $fetch = $this->app_model->get_all(APP_USERS,['id'=>$user_id]);
+        if($fetch->num_rows() != 0){
+            
+            $insert_Arr = [
+                'user_id'=>$user_id,
+                'title'=>$api_req['title'],
+                'full_name'=>$api_req['full_name'],
+                'address_line_1'=>$api_req['address_line_1'],
+                'address_line_2'=>$api_req['address_line_2'],
+                'city'=>$api_req['city'],
+                'state'=>$api_req['state'],
+                'country'=>$api_req['country'],
+                'land_mark'=>$api_req['land_mark'],
+                'pincode'=>$api_req['pincode'],
+                'ph_country_code'=>$api_req['ph_country_code'],
+                'phone_number'=>$api_req['phone_number']
+            ];
+            
+            $exe = $this->app_model->simple_insert(USER_ADDRESSES,$insert_Arr);
+            if($exe){
+                $data = ['item_id'=>$this->db->insert_id()];
+                $json = ['status'=>"success",'err_code'=>NULL,'msg'=>'Address has been saved successfully','data'=>$data];
+            }else{
+                $json = ['status'=>"failed",'err_code'=>"sql_error",'msg'=>$this->db->error()];
+            }
+        }else{
+            $json = ['status'=>"failed",'err_code'=>"invalid_user_id",'msg'=>"Please Login again"];
+        }
+        echo json_encode($json);
+    }
+    
+    public function getAddress(){
+        $api_req = $this->first_run('POST');
+        
+        $user_id_enc = $api_req['user_id'];
+        $user_id = $this->app_model->decode($user_id_enc);
+        
+        $fetch = $this->app_model->get_all(APP_USERS,['id'=>$user_id]);
+        if($fetch->num_rows() != 0){
+            $data = [];$i=0;
+            
+            $fetch = $this->app_model->get_all(USER_ADDRESSES,['user_id'=>$user_id]);
+            foreach($fetch->result() as $key){
+                $data[$i]=[
+                    'item_id'=>$key->id,
+                    'title'=>$key->title,
+                    'full_name'=>$key->full_name,
+                    'address_line_1'=>$key->address_line_1,
+                    'address_line_2'=>$key->address_line_2,
+                    'city'=>$key->city,
+                    'state'=>$key->state,
+                    'country'=>$key->country,
+                    'land_mark'=>$key->land_mark,
+                    'pincode'=>$key->pincode,
+                    'ph_country_code'=>$key->ph_country_code,
+                    'phone_number'=>$key->phone_number
+                ];
+                $i++;
+            }
+            
+            $json = ['status'=>"success",'err_code'=>NULL,'msg'=>"$i Address available",'data'=>$data];
+        }else{
+            $json = ['status'=>"failed",'err_code'=>"invalid_user_id",'msg'=>"Please Login again"];
+        }
+        echo json_encode($json);
+        
     }
     
 }
