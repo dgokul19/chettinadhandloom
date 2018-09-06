@@ -173,5 +173,50 @@ class User extends CI_Controller
         echo json_encode($json);
     }
     
+    public function show_cart(){
+        $api_req = $this->first_run('POST');
+        
+        $user_id_enc = $api_req['user_id'];
+        $user_id = $this->app_model->decode($user_id_enc);
+        
+        $fetch = $this->app_model->get_all(APP_USERS,['id'=>$user_id]);
+        if($fetch->num_rows() != 0){
+            
+            echo $sql_state = "SELECT A.id,A.product_id,A.quantity,B.product_code,B.pdt_name,B.pdt_description,B.unit,B.price,B.available_quantity,B.status,B.published,C.picture_url FROM `ch_user_cart` as A "
+                    . "INNER JOIN `ch_product_details` as B ON A.product_id=B.id LEFT JOIN `ch_product_images` as C ON A.product_id=C.pdt_p_id WHERE A.user_id='$user_id' AND C.is_cover_image=1 AND B.published=1";
+            $sql_exe = $this->app_model->ExecuteQuery($sql_state);
+            $data = [];$i=0;
+            $product_picture_url = ASSETS."product-images/products/";
+            foreach($sql_exe->result() as $key){
+                switch ($key->status){
+                    case 'available': $status = "available";
+                        break;
+                    case 'booked': $status = "booked";
+                        break;
+                    case 'sold': $status = "sold";
+                        break;
+                }
+                $data[$i]=[
+                   'item_id'=> $key->id,
+                   'product_id'=> $key->product_id,
+                   'product_code'=> $key->product_code,
+                   'product_name'=> $key->pdt_name,
+                   'product_description'=> $key->pdt_description,
+                   'product_unit'=> $key->unit,
+                   'product_price'=> $key->price,
+                   'product_quantity'=> $key->quantity,
+                   'product_cover_img'=> $product_picture_url.$key->picture_url,
+                   'product_status'=> $status
+                ];  
+                $i++;
+            }
+            
+            $json = ['status'=>"success",'err_code'=>NULL,'msg'=>"$i products available",'data'=>$data];
+        }else{
+            $json = ['status'=>"failed",'err_code'=>"invalid_user_id",'msg'=>"Please Login again"];
+        }
+        echo json_encode($json);
+    }
+    
 }
 ?>
