@@ -35,6 +35,7 @@ app.controller('categoryController', function($scope,$location, $rootScope, $rou
     var get_albums = function (opts){
         productCartApi.filter_get_album(opts).then(function(response){
             $scope.filter_album = response.data.data;
+            console.log('resp',  $scope.filter_album);
         });
     }
 

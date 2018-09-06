@@ -1,16 +1,21 @@
 
-app.controller('detailsController', function($scope,$mdToast,$rootScope, $timeout, $routeParams,  $localStorage, userSession, productCartApi){
+app.controller('detailsController', function($scope,$rootScope, $timeout, $routeParams, cart_factory, userSession, productCartApi){
     var product_id = atob($routeParams.product_id);
     var product_code = $routeParams.product_code;
     var product_name = $routeParams.product_name;
     $scope.product_name = angular.copy(product_name);
-    var params = {
-        "product_id" : $routeParams.product_id,
+    var _param_define = {
+        "product_id"  : atob($routeParams.product_id),
         "product_code" : $routeParams.product_code,
         "product_name" : $routeParams.product_name
     }
     $scope.cartIsEmpty = true;
     $scope.cart = [];
+    var user_details = userSession.getUserSession(); 
+
+
+
+
     $scope.change_qty = function (qty, type){
         if(type === 'add'){
             $scope.products.qty = parseInt(qty) + 1;
@@ -37,25 +42,40 @@ app.controller('detailsController', function($scope,$mdToast,$rootScope, $timeou
     };
 
     $scope.addtoCart = function (product){
-        if(userSession.getUserSession()){
-            location.href = "#/cart"
+        if(user_details){
+           $scope.cartIsEmpty = false;
         } else {
             var access_ques = confirm("Please login to add the products into cart");
             if(access_ques){
-                userSession.setParamCart(params, function(status){
+                userSession.setParamCart(_param_define, function(status){
                     if(status)
                         location.href = "#/login";
                 });
             }
         }
     }
-    $scope.continue_shopping = function(){
-        // userSession.clearState();
+    $scope.continue_shopping = function(products){
+        if(user_details){
+            var opts = {
+                "user_id" :  user_details.userID,
+                "product_id" : products.item_id, 
+                "product_quantity" :products.qty
+            }
+            cart_factory.add_to_cart(opts, function(err, data){
+                if (err) return console.log(err);
+                if(data.status == 'success')
+                    location.href = "#/loomspace";
+                else
+                    console.log('Error :', err_code);
+            });
+        } else{
+            $scope.cartIsEmpty = true;
+        }
     }
 
 
     $scope.get_product_details = function (){
-        productCartApi.get_product_details(params, function(err, response){
+        productCartApi.get_product_details(_param_define, function(err, response){
             if (err) return console.log(err);
             response.qty = '1';
             $scope.products = response;
@@ -64,7 +84,9 @@ app.controller('detailsController', function($scope,$mdToast,$rootScope, $timeou
     }
     
     $scope.goCart = function (){
-        // if()
+        if(user_details){
+            location.href = "#/cart"
+        }
     };
    
     $scope.get_product_details();

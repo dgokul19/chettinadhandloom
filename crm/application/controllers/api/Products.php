@@ -125,10 +125,10 @@ class Products extends CI_Controller
         $req_Arr = json_decode($req_obj,true);
 
         
-        $req_Arr = [
-            'product_id'=>1,
-            'product_code'=>'S1200'
-        ];
+        // $req_Arr = [
+        //     'product_id'=>1,
+        //     'product_code'=>'S1200'
+        // ];
         
 
         if(empty($req_Arr)){

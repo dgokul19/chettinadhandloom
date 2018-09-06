@@ -35,7 +35,7 @@ app.controller('loginController',function($scope, $mdToast, $rootScope, $locatio
                     if(!param)
                         location.href="#/loomspace";
                     else
-                        location.href="#/products/"+ param.product_id + '/' + param.product_code + '/' + param.product_name;
+                        location.href="#/products/"+ btoa(param.product_id) + '/' + param.product_code + '/' + param.product_name;
                 });
 			} else {
                 showToast('error', 'Error', resp.data.msg);

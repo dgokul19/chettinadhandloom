@@ -55,40 +55,24 @@
                         </div> 
                     </div>
                     
-                    <div class="cart_lines">
+                    <div class="cart_lines" ng-repeat="item in products">
                         <div class="col-sm-2 prod_images layout-column layout-align-center-center padding0">
-                            <img src="http://localhost/chettinadhandloom/crm/assets/product-images/products/21557711_862472533900366_6771048742462787759_n.jpg">
+                            <img ng-src="{{item.product_cover_img}}">
                         </div>
                         <div class="cart_desc_bx col-sm-4">
-                            <h3>Pragatham</h3>
-                            <p>Colours of Navarathri - one of the best and famous weaves of Chettinad cotton, fusion of checks and small temples ( small korvai's ). With running blouse 6.2 mts.</p>
-                            <h2 class="textOfPrice marginTop10">Rs.1200</h2>
+                            <h3 ng-bind="item.product_name"></h3>
+                            <p ng-bind="item.product_description"></p>
+                            <h2 class="textOfPrice marginTop10">
+                                <i class="fa fa-inr"></i> {{item.product_price}}
+                            </h2>
                         </div>
                         <div class="col-sm-2 cart_desc_bx padding0 layout-column layout-align-center-center detsQty">
-                            <input type="text" placeholder="qty" ng-model="products.qty" maxlength="3"/>
+                            <input type="text" placeholder="" ng-model="item.product_quantity" maxlength="3"/>
                         </div>
                         <div class="col-sm-2 cart_desc_bx padding0 layout-column layout-align-center-center">
-                            <h2 class="textOfPrice marginTop10">Rs.1200</h2>
-                        </div>
-                        <div class="col-sm-2 cart_desc_bx padding0 layout-column layout-align-center-center">
-                        <i class="fa fa-close removeItems" ng-click="removeItem()"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="cart_lines">
-                        <div class="col-sm-2 prod_images layout-column layout-align-center-center padding0">
-                            <img src="http://localhost/chettinadhandloom/crm/assets/product-images/products/21557711_862472533900366_6771048742462787759_n.jpg">
-                        </div>
-                        <div class="cart_desc_bx col-sm-4">
-                            <h3>Pragatham</h3>
-                            <p>Colours of Navarathri - one of the best and famous weaves of Chettinad cotton, fusion of checks and small temples ( small korvai's ). With running blouse 6.2 mts.</p>
-                            <h2 class="textOfPrice marginTop10">Rs.1200</h2>
-                        </div>
-                        <div class="col-sm-2 cart_desc_bx padding0 layout-column layout-align-center-center detsQty">
-                            <input type="text" placeholder="qty" ng-model="products.qty" maxlength="3"/>
-                        </div>
-                        <div class="col-sm-2 cart_desc_bx padding0 layout-column layout-align-center-center">
-                            <h2 class="textOfPrice marginTop10">Rs.1200</h2>
+                            <h2 class="textOfPrice marginTop10">
+                                <i class="fa fa-inr"></i> {{item.product_quantity * item.product_price}}
+                            </h2>
                         </div>
                         <div class="col-sm-2 cart_desc_bx padding0 layout-column layout-align-center-center">
                         <i class="fa fa-close removeItems" ng-click="removeItem()"></i>
