@@ -268,19 +268,30 @@ class User extends CI_Controller
             
             $fetch = $this->app_model->get_all(USER_ADDRESSES,['user_id'=>$user_id]);
             foreach($fetch->result() as $key){
+                
+                $ship_country_sql = "SELECT fixed_cost,shipping_amount FROM `ch_master_countries` WHERE id=".$key->country.";";
+                $ship_country = $this->app_model->ExecuteQuery($ship_country_sql);
+                if($ship_country->row()->fixed_cost == 0){
+                    $ship_states_sql = "SELECT fixed_cost,shipping_amount FROM `ch_master_states` WHERE id=".$key->state.";";
+                    $ship_states = $this->app_model->ExecuteQuery($ship_states_sql);
+                    $shipping_cost = $ship_states->row()->shipping_amount;
+                }else{
+                    $shipping_cost = $ship_country->row()->shipping_amount;
+                }
                 $data[$i]=[
                     'item_id'=>$key->id,
                     'title'=>$key->title,
                     'full_name'=>$key->full_name,
                     'address_line_1'=>$key->address_line_1,
                     'address_line_2'=>$key->address_line_2,
-                    'city'=>$key->city,
-                    'state'=>$key->state,
-                    'country'=>$key->country,
+                    'city'=>$this->app_model->getCityName($key->city),
+                    'state'=>$this->app_model->getStateName($key->state),
+                    'country'=>$this->app_model->getCountryName($key->country),
                     'land_mark'=>$key->land_mark,
                     'pincode'=>$key->pincode,
                     'ph_country_code'=>$key->ph_country_code,
-                    'phone_number'=>$key->phone_number
+                    'phone_number'=>$key->phone_number,
+                    'shipping_cost'=>$shipping_cost
                 ];
                 $i++;
             }

@@ -98,3 +98,6 @@ define('FILTER_PRICE_RANGE',TBL_PRFFIX.'filter_price_range');
 
 define('USER_CART',TBL_PRFFIX.'user_cart');
 define('USER_ADDRESSES',TBL_PRFFIX.'user_addresses');
+define('COUNTRIES',TBL_PRFFIX.'master_countries');
+define('STATES',TBL_PRFFIX.'master_states');
+define('CITIES',TBL_PRFFIX.'master_cities');

@@ -132,5 +132,23 @@ class App_model extends CI_Model
         }
     }
     
+    public function getCountryName($id){
+        $this->db->select('name')->from(COUNTRIES)->where(['id'=>$id]);
+        $result = $this->db->get();
+        return $result->row()->name;
+    }
+    
+    public function getStateName($id){
+        $this->db->select('name')->from(STATES)->where(['id'=>$id]);
+        $result = $this->db->get();
+        return $result->row()->name;
+    }
+    
+    public function getCityName($id){
+        $this->db->select('name')->from(CITIES)->where(['id'=>$id]);
+        $result = $this->db->get();
+        return $result->row()->name;
+    }
+    
 
 }
