@@ -29,6 +29,32 @@ app.factory('cart_factory', function($http, $mdToast){
 				}
 			});
 		},
+		get_address_data : function (params, callback){
+			return $http({
+				url : base_url + 'user/getAddress',
+				method : 'POST',
+				data : JSON.stringify(params)
+			}).then(function(response){
+				if(response.data.status === 'success'){
+					callback(null, response.data.data);
+				} else{
+					callback(response);
+				}
+			});
+		},
+		remove_product : function (params, callback){
+			return $http({
+				url : base_url + 'user/remove-cart-item',
+				method : 'POST',
+				data : JSON.stringify(params)
+			}).then(function(response){
+				if(response.data.status === 'success'){
+					callback(null, response.data.data);
+				} else{
+					callback(response);
+				}
+			});
+		},
 		showToast : function(type, title, messages){     
 			$mdToast.show(
 				$mdToast.simple({

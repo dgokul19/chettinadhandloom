@@ -43,7 +43,19 @@ app.controller('detailsController', function($scope,$rootScope, $timeout, $route
 
     $scope.addtoCart = function (product){
         if(user_details){
-           $scope.cartIsEmpty = false;
+           
+            var opts = {
+                "user_id" :  user_details.userID,
+                "product_id" : product.item_id, 
+                "product_quantity" :product.qty
+            }
+            cart_factory.add_to_cart(opts, function(err, data){
+                if (err) return console.log(err);
+                if(data.status == 'success')
+                    $scope.cartIsEmpty = false;
+                else
+                    console.log('Error :', err_code);
+            });
         } else {
             var access_ques = confirm("Please login to add the products into cart");
             if(access_ques){
@@ -88,6 +100,6 @@ app.controller('detailsController', function($scope,$rootScope, $timeout, $route
             location.href = "#/cart"
         }
     };
-   
+
     $scope.get_product_details();
 });

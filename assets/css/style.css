@@ -1731,7 +1731,7 @@ section.cart_sectn{
 }
 .cart_lines{
 	width: 100%;
-	min-height : 180px;
+	height : 180px;
 	margin-bottom : 20px;
 	position: relative;
 	padding:5px;
@@ -1740,7 +1740,7 @@ section.cart_sectn{
 }
 .prod_images{
 	/* width: 165px; */
-    height: 165px;
+    height: 170px;
 	padding-left:0px;
 	float : left;
 }
@@ -1831,4 +1831,28 @@ ul.pric_lis_li li div{
 }
 .addrss_list.active .fa-map-marker{
 	color : #6f1136;
+}
+
+.cart_lines .product_status{
+	position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+	background: rgba(255, 255, 255, 0.58);
+    filter: blur(1px);
+}
+.cart_lines .product_status:after {
+	content: '';
+    display: block;
+    background-image: url(../images/sold.png);
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    justify-content: center;
+    background-position: center;
+    background-size: 130px;
+}
+.product_status .prod_images {
+	filter: grayscale(1);
 }

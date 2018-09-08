@@ -1,3 +1,7 @@
+<div class="loader" layout="row" layout-align="center center" ng-if="loader">
+    <img src="assets/images/dash-loader.gif">
+</div>
+
 <header class="origMenu detailsPage">
 	<div class="container">
 		<button class="sideTooge layout-column layout-align-center-center">
@@ -55,27 +59,29 @@
                         </div> 
                     </div>
                     
-                    <div class="cart_lines" ng-repeat="item in products">
-                        <div class="col-sm-2 prod_images layout-column layout-align-center-center padding0">
-                            <img ng-src="{{item.product_cover_img}}">
-                        </div>
-                        <div class="cart_desc_bx col-sm-4">
-                            <h3 ng-bind="item.product_name"></h3>
-                            <p ng-bind="item.product_description"></p>
-                            <h2 class="textOfPrice marginTop10">
-                                <i class="fa fa-inr"></i> {{item.product_price}}
-                            </h2>
-                        </div>
-                        <div class="col-sm-2 cart_desc_bx padding0 layout-column layout-align-center-center detsQty">
-                            <input type="text" placeholder="" ng-model="item.product_quantity" maxlength="3"/>
-                        </div>
-                        <div class="col-sm-2 cart_desc_bx padding0 layout-column layout-align-center-center">
-                            <h2 class="textOfPrice marginTop10">
-                                <i class="fa fa-inr"></i> {{item.product_quantity * item.product_price}}
-                            </h2>
-                        </div>
-                        <div class="col-sm-2 cart_desc_bx padding0 layout-column layout-align-center-center">
-                        <i class="fa fa-close removeItems" ng-click="removeItem()"></i>
+                    <div class="cart_lines relative" ng-repeat="item in products">
+                        <div ng-class="{'product_status' : item.product_status == 'sold'}">
+                            <div class="col-sm-2 prod_images layout-column layout-align-center-center padding0">
+                                <img ng-src="{{item.product_cover_img}}">
+                            </div>
+                            <div class="cart_desc_bx col-sm-4">
+                                <h3 ng-bind="item.product_name"></h3>
+                                <p ng-bind="item.product_description"></p>
+                                <h2 class="textOfPrice marginTop10">
+                                    <i class="fa fa-inr"></i> {{item.product_price}}
+                                </h2>
+                            </div>
+                            <div class="col-sm-2 cart_desc_bx padding0 layout-column layout-align-center-center detsQty">
+                                <input type="text" ng-disabled="item.product_status == 'sold'" ng-model="item.product_quantity" maxlength="3"/>
+                            </div>
+                            <div class="col-sm-2 cart_desc_bx padding0 layout-column layout-align-center-center">
+                                <h2 class="textOfPrice marginTop10">
+                                    <i class="fa fa-inr"></i> {{item.product_quantity * item.product_price}}
+                                </h2>
+                            </div>
+                            <div class="col-sm-2 cart_desc_bx padding0 layout-column layout-align-center-center">
+                                <i class="fa fa-close removeItems" ng-click="removeItem(item, $index)"></i>
+                            </div>
                         </div>
                     </div>
                 </div> 
@@ -93,17 +99,8 @@
                                 <p>Chennai, India - 600032.</p>
                             </div>
                         </div>
-                        
-                        <div class="addrss_list active padding10 md-whiteframe-1dp">
-                            <div class="icon_addr pull-left" layout="column" layout-align="center center">
-                               <i class="fa fa-map-marker fa-4x active"></i>
-                            </div>
-                            <div class="addr_details pull-left marginLeft10">
-                                <p>F2/152A, Thirugnasambadhar Street,</p>
-                                <p>Thiruvalleswarar Nagar,Thirumangalam</p>
-                                <p>Chennai, India - 600032.</p>
-                            </div>
-                        </div>
+
+
                         <div class="clearfix"></div>
 
                         <div class="marginTop20 _black" ng-click="show_new = !show_new">
