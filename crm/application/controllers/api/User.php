@@ -156,7 +156,7 @@ class User extends CI_Controller
                 }else{
                     $existing_qnty = $redundant_check->row()->quantity;
                     if($existing_qnty == $product_quantity){
-                        $json = ['status'=>"success",'err_code'=>NULL,'msg'=>'Product already added to cart'];
+                        $json = ['status'=>"success",'err_code'=>NULL,'msg'=>'Product has already been added to cart'];
                     }else{
                         $exe = $this->app_model->simple_update(USER_CART,$insert_arr,['id'=>$redundant_check->row()->id]);
                         if($exe){
@@ -184,7 +184,7 @@ class User extends CI_Controller
         $fetch = $this->app_model->get_all(APP_USERS,['id'=>$user_id]);
         if($fetch->num_rows() != 0){
             
-            $sql_state = "SELECT A.id,A.product_id,A.quantity,B.product_code,B.pdt_name,B.pdt_description,B.unit,B.price,B.available_quantity,B.status,B.published,C.picture_url FROM `ch_user_cart` as A "
+            $sql_state = "SELECT A.product_id,A.quantity,B.product_code,B.pdt_name,B.pdt_description,B.unit,B.price,B.available_quantity,B.status,B.published,C.picture_url FROM `ch_user_cart` as A "
                     . "INNER JOIN `ch_product_details` as B ON A.product_id=B.id LEFT JOIN `ch_product_images` as C ON A.product_id=C.pdt_p_id WHERE A.user_id='$user_id' AND C.is_cover_image=1 AND B.published=1";
             $sql_exe = $this->app_model->ExecuteQuery($sql_state);
             $data = [];$i=0;
@@ -199,7 +199,6 @@ class User extends CI_Controller
                         break;
                 }
                 $data[$i]=[
-                   'item_id'=> $key->id,
                    'product_id'=> $key->product_id,
                    'product_code'=> $key->product_code,
                    'product_name'=> $key->pdt_name,
@@ -292,6 +291,40 @@ class User extends CI_Controller
         }
         echo json_encode($json);
         
+    }
+    
+    public function remove_cart_item(){
+        $api_req = $this->first_run('POST');
+        
+        $user_id_enc = $api_req['user_id'];
+        $user_id = $this->app_model->decode($user_id_enc);
+        
+        if(empty($api_req['product_id'])){
+            $json = ['status'=>"failed",'err_code'=>"invalid_request",'msg'=>"Product ID missing"];
+            echo json_encode($json);
+            die;
+        }else{
+            $product_id = $api_req['product_id'];
+        }
+        
+        $fetch = $this->app_model->get_all(APP_USERS,['id'=>$user_id]);
+        if($fetch->num_rows() != 0){
+            $fetch2 = $this->app_model->get_all(USER_CART,['product_id'=>$product_id,'user_id'=>$user_id]);
+            if($fetch2->num_rows() != 0){
+                $remove = $this->app_model->simple_delete(USER_CART,['product_id'=>$product_id,'user_id'=>$user_id]);
+                if($remove){
+                    $json = ['status'=>"success",'err_code'=>NULL,'msg'=>"Item has been removed from the cart",'data'=>NULL];
+                }else{
+                    $json = ['status'=>"failed",'err_code'=>"sql_error",'msg'=>$this->db->error()];
+                }
+            }else{
+                $json = ['status'=>"failed",'err_code'=>"item_not_found",'msg'=>'Product does not exist in the cart'];
+            }
+            
+        }else{
+            $json = ['status'=>"failed",'err_code'=>"invalid_user_id",'msg'=>"Please Login again"];
+        }
+        echo json_encode($json);
     }
     
 }
