@@ -101,3 +101,4 @@ define('USER_ADDRESSES',TBL_PRFFIX.'user_addresses');
 define('COUNTRIES',TBL_PRFFIX.'master_countries');
 define('STATES',TBL_PRFFIX.'master_states');
 define('CITIES',TBL_PRFFIX.'master_cities');
+define('GIFT_CARD',TBL_PRFFIX.'master_gift_card');

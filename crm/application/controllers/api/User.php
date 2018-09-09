@@ -266,6 +266,8 @@ class User extends CI_Controller
         if($fetch->num_rows() != 0){
             $data = [];$i=0;
             
+            $getGiftCard = $this->app_model->get_all(GIFT_CARD)->row();
+            
             $fetch = $this->app_model->get_all(USER_ADDRESSES,['user_id'=>$user_id]);
             foreach($fetch->result() as $key){
                 
@@ -291,7 +293,8 @@ class User extends CI_Controller
                     'pincode'=>$key->pincode,
                     'ph_country_code'=>$key->ph_country_code,
                     'phone_number'=>$key->phone_number,
-                    'shipping_cost'=>$shipping_cost
+                    'shipping_cost'=>$shipping_cost,
+                    'gift_charges'=>$getGiftCard->amount,
                 ];
                 $i++;
             }
