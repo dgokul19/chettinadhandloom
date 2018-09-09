@@ -338,5 +338,47 @@ class User extends CI_Controller
         echo json_encode($json);
     }
     
+    public function update_cart_item(){
+        $api_req = $this->first_run('POST');
+        
+        $user_id_enc = $api_req['user_id'];
+        $user_id = $this->app_model->decode($user_id_enc);
+        
+        if(empty($api_req['product_id'])){
+            $json = ['status'=>"failed",'err_code'=>"invalid_request",'msg'=>"Product ID missing"];
+            echo json_encode($json);
+            die;
+        }else{
+            $product_id = $api_req['product_id'];
+        }
+        
+        if(empty($api_req['quantity'])){
+            $json = ['status'=>"failed",'err_code'=>"invalid_request",'msg'=>"Quantity value missing"];
+            echo json_encode($json);
+            die;
+        }else{
+            $quantity = $api_req['quantity'];
+        }
+        
+        $fetch = $this->app_model->get_all(APP_USERS,['id'=>$user_id]);
+        if($fetch->num_rows() != 0){
+            $fetch2 = $this->app_model->get_all(USER_CART,['product_id'=>$product_id,'user_id'=>$user_id]);
+            if($fetch2->num_rows() != 0){
+                $remove = $this->app_model->simple_update(USER_CART,['quantity'=>$quantity],['product_id'=>$product_id,'user_id'=>$user_id]);
+                if($remove){
+                    $json = ['status'=>"success",'err_code'=>NULL,'msg'=>"Quantity has been updated",'data'=>NULL];
+                }else{
+                    $json = ['status'=>"failed",'err_code'=>"sql_error",'msg'=>$this->db->error()];
+                }
+            }else{
+                $json = ['status'=>"failed",'err_code'=>"item_not_found",'msg'=>'Product does not exist in the cart'];
+            }
+            
+        }else{
+            $json = ['status'=>"failed",'err_code'=>"invalid_user_id",'msg'=>"Please Login again"];
+        }
+        echo json_encode($json);
+    }
+    
 }
 ?>
