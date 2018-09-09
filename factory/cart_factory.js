@@ -29,6 +29,19 @@ app.factory('cart_factory', function($http, $mdToast){
 				}
 			});
 		},
+		update_line_qty : function (params, callback){
+			return $http({
+				url : base_url + 'user/update-cart-item',
+				method : 'POST',
+				data : JSON.stringify(params)
+			}).then(function(response){
+				if(response.data.status === 'success'){
+					callback(null, response.data.data);
+				} else{
+					callback(response);
+				}
+			});
+		},
 		get_address_data : function (params, callback){
 			return $http({
 				url : base_url + 'user/getAddress',
@@ -55,9 +68,34 @@ app.factory('cart_factory', function($http, $mdToast){
 				}
 			});
 		},
+		save_addresses : function (params, callback){
+			return $http({
+				url : base_url + 'user/save-address',
+				method : 'POST',
+				data : JSON.stringify(params)
+			}).then(function(response){
+				if(response.data.status === 'success'){
+					callback(response.data.data);
+				} else{
+					callback(response);
+				}
+			});
+		},
 		get_countries : function (){
 			return $http({
 				url :  base_url + 'master/getCountries',
+				method : 'GET',
+			});
+		},
+		get_state : function (country_id){
+			return $http({
+				url :  base_url + 'master/getStates?id=' + country_id,
+				method : 'GET',
+			});
+		},
+		get_city : function (state_id){
+			return $http({
+				url :  base_url + 'master/getCities?id=' + state_id,
 				method : 'GET',
 			});
 		},

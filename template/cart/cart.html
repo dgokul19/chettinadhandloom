@@ -72,7 +72,7 @@
                                 </h2>
                             </div>
                             <div class="col-sm-2 cart_desc_bx padding0 layout-column layout-align-center-center detsQty">
-                                <input type="text" ng-disabled="item.product_status == 'sold'" ng-model="item.product_quantity" maxlength="3"/>
+                                <input type="text" ng-disabled="item.product_status == 'sold'" ng-model="item.product_quantity" ng-blur="updateLineQuantity(item)" maxlength="3"/>
                             </div>
                             <div class="col-sm-2 cart_desc_bx padding0 layout-column layout-align-center-center">
                                 <h2 class="textOfPrice marginTop10">
@@ -89,13 +89,13 @@
                 <div class="address_cart marginTop20">  
                     <h2>Select address</h2>
                     <div class="col-sm-6 padding0">
-                        <div class="addrss_list marginBottom10 padding10 md-whiteframe-1dp">
-                            <div ng-repeat="addr in user_addresses">
+                        <div ng-repeat="addr in user_addresses">
+                            <div ng-class="{active_card : active_card == addr.item_id}" class="addrss_list marginBottom10 padding10 md-whiteframe-1dp">
                                 <div class="icon_addr pull-left" layout="column" layout-align="center center">
                                     <i class="fa fa-map-marker fa-4x active"></i>
                                 </div>
                                 <div class="addr_details pull-left marginLeft10">
-                                    <h5 ng-bind="addr.full_name"></h5>
+                                    <h5 class="margin0" ng-bind="addr.title +' '+addr.full_name"></h5>
                                     <p>
                                         <span ng-bind="addr.address_line_1"></span>
                                     </p>
@@ -110,80 +110,82 @@
                                         <span ng-bind="addr.ph_country_code + ' - ' + addr.phone_number"></span>
                                     </p>
                                 </div>
-                            </div>
+                            </div>    
                         </div>
+                    </div>
 
 
                         <div class="clearfix"></div>
 
                         <div class="marginTop20 _black" ng-click="show_new = !show_new">
                             <span ng-hide="show_new">Not here !! Create new</span> 
-                            <span ng-show="show_new">Close</span> 
                         </div>
                     </div>
 
                     <div class="col-sm-6">
-                        <form class="address_frm" ng-show="show_new">
+                        <label class="error_form" ng-hide="isValidForm">Please fill the necessary fields</label>
+                        <form class="address_frm" name="addressForm" ng-show="show_new">
                             <md-input-container class="inputBoxed marginTop20">
                                 <label>Full Name</label>
-                                <input type="text" ng-model="addresses.full_name">
+                                <input type="text" ng-model="addresses.fields.full_name" required>
                             </md-input-container>
                         
                             <md-input-container class="inputBoxed marginTop20">
                                 <label>Address Line 1</label>
-                                <input type="text" ng-model="addresses.address_line_1">
+                                <input type="text" ng-model="addresses.fields.address_line_1" required>
                             </md-input-container>
                         
                             <md-input-container class="inputBoxed marginTop20">
                                 <label>Address Line 2</label>
-                                <input type="text" ng-model="addresses.address_line_2">
+                                <input type="text" ng-model="addresses.fields.address_line_2" required>
                             </md-input-container>
                             
                             <md-input-container class="inputBoxed marginTop20">
-                                <select ng-model="addresses.country">
-                                    <option ng-value="selected">Select Country</option>
-                                    <option ng-repeat="country in countries">{{country.name}}</option>
+                                <select ng-model="addresses.fields.country" ng-change="addresses.onChangeCountry(addresses.fields.country)">
+                                    <option value="0">Select Country</option>
+                                    <option ng-repeat="country in get_countries" ng-value="country.id">{{country.name}}</option>
                                 </select>
                             </md-input-container>
                             
                             <md-input-container class="inputBoxed marginTop20">
-                                <select ng-model="addresses.state">
+                                <select ng-model="addresses.fields.state" ng-change="addresses.onChangeState(addresses.fields.state)">
                                     <option ng-value="selected">Select State</option>
-                                    <option ng-repeat="state in states">{{state.name}}</option>
+                                    <option ng-repeat="state in states_list" ng-value="state.id">{{state.name}}</option>
                                 </select>
                             </md-input-container>
                             
                             <md-input-container class="inputBoxed marginTop20">
-                                <select ng-model="addresses.city">
+                                <select ng-model="addresses.fields.city">
                                     <option ng-value="selected">Select City</option>
-                                    <option ng-repeat="city in cities">{{city.name}}</option>
+                                    <option ng-repeat="city in cities_list" ng-value="city.id">{{city.name}}</option>
                                 </select>
                             </md-input-container>
                             
                             <md-input-container class="inputBoxed marginTop20">
                                 <label>Landmark</label>
-                                <input type="text" ng-model="addresses.land_mark">
+                                <input type="text" ng-model="addresses.fields.land_mark">
                             </md-input-container>
                             
                             <md-input-container class="inputBoxed marginTop20">
                                 <label>Zipcode</label>
-                                <input type="text" ng-model="addresses.pincode">
+                                <input type="text" ng-model="addresses.fields.pincode">
                             </md-input-container>
                             
                             <div class="layout-row marginTop20">
-                                <select ng-model="addresses.ph_country_code">
-                                    <option selected="selected" value="+91">+91</option>
-                                    <option value="+0065">+0065</option>
+                                <select class="border-black" ng-model="addresses.fields.ph_country_code" class="paddingLeft10">
+                                    <option ng-value="selected">Code</option>
+                                    <option ng-repeat="country in get_countries" ng-value="country.phonecode">{{country.phonecode}}</option>
                                 </select>
                                 <md-input-container class="inputBoxed ">
                                     <label>Phone number</label>
-                                    <input type="text" ng-model="addresses.phone_number">
+                                    <input type="text" ng-model="addresses.fields.phone_number" required>
                                 </md-input-container>
                             </div>
                             
                             <div class="clearfix"></div>
                             <br>
-                            <md-button class=" margin0 md-primary cart_btn subscrbBtn">SUBMIT </md-button>
+                            <md-button class=" margin0 md-primary cart_btn subscrbBtn"  ng-click="addresses.formSubmit(addresses.fields)">SUBMIT </md-button>
+                            <md-button ng-click="show_new = !show_new" ng-show="show_new" class=" margin0 md-primary cart_btn subscrbBtn">Close </md-button>
                         </form>
                     </div>
                 </div>
@@ -195,7 +197,7 @@
                     <ul class="pric_lis_li list-unstyled layout-column">
                         <li>
                             <div class="pull-left">Sub Total</div>
-                            <div class="pull-right pric_ran">1200.00</div>
+                            <div class="pull-right pric_ran">{{cart_summary.sub_total}}</div>
                         </li>
                         <li>
                             <div class="pull-left">Shipping Amount</div>
