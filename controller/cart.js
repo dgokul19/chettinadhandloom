@@ -6,9 +6,10 @@ app.controller('cartController', function($scope,$http,$rootScope, accountFactor
 
     var get_countries = function (){
        cart_factory.get_countries().then(function(response){
-            console.log('$scope.get_countries', response);
-            if(response.data.status === 200){
-                $scope.get_countries = response;
+            if(response.data.status === 'success'){
+                $scope.get_countries = response.data.data;
+                console.log('$scope.get_countries',  $scope.get_countries);
+
             }
        });
     }
@@ -46,7 +47,7 @@ app.controller('cartController', function($scope,$http,$rootScope, accountFactor
      var init = function (){
         load_cart_details();
         get_user_addresses();
-        get_countries();
+        // get_countries();
      };
 
     if(userDetails){

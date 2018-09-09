@@ -57,7 +57,7 @@ app.factory('cart_factory', function($http, $mdToast){
 		},
 		get_countries : function (){
 			return $http({
-				url : 'master/getCountries',
+				url :  base_url + 'master/getCountries',
 				method : 'GET',
 			});
 		},
