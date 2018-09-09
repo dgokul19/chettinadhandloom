@@ -90,13 +90,26 @@
                     <h2>Select address</h2>
                     <div class="col-sm-6 padding0">
                         <div class="addrss_list marginBottom10 padding10 md-whiteframe-1dp">
-                            <div class="icon_addr pull-left" layout="column" layout-align="center center">
-                               <i class="fa fa-map-marker fa-4x active"></i>
-                            </div>
-                            <div class="addr_details pull-left marginLeft10">
-                                <p>F2/152A, Thirugnasambadhar Street,</p>
-                                <p>Thiruvalleswarar Nagar,Thirumangalam</p>
-                                <p>Chennai, India - 600032.</p>
+                            <div ng-repeat="addr in user_addresses">
+                                <div class="icon_addr pull-left" layout="column" layout-align="center center">
+                                    <i class="fa fa-map-marker fa-4x active"></i>
+                                </div>
+                                <div class="addr_details pull-left marginLeft10">
+                                    <h5 ng-bind="addr.full_name"></h5>
+                                    <p>
+                                        <span ng-bind="addr.address_line_1"></span>
+                                    </p>
+                                    <p><span ng-bind="addr.address_line_2"></span></p>
+                                    <p>
+                                        <span ng-bind="addr.city"></span>
+                                        <span ng-bind="addr.state"></span>
+                                        <span ng-bind="addr.country"></span>
+                                        <span ng-bind="addr.pincode"></span>
+                                    </p>
+                                    <p>
+                                        <span ng-bind="addr.ph_country_code + ' - ' + addr.phone_number"></span>
+                                    </p>
+                                </div>
                             </div>
                         </div>
 
@@ -113,38 +126,61 @@
                         <form class="address_frm" ng-show="show_new">
                             <md-input-container class="inputBoxed marginTop20">
                                 <label>Full Name</label>
-                                <input type="text" ng-model="addresses.name">
+                                <input type="text" ng-model="addresses.full_name">
                             </md-input-container>
                         
                             <md-input-container class="inputBoxed marginTop20">
                                 <label>Address Line 1</label>
-                                <input type="text" ng-model="addresses.addrLine1">
+                                <input type="text" ng-model="addresses.address_line_1">
                             </md-input-container>
                         
                             <md-input-container class="inputBoxed marginTop20">
                                 <label>Address Line 2</label>
-                                <input type="text" ng-model="addresses.addrLine2">
+                                <input type="text" ng-model="addresses.address_line_2">
                             </md-input-container>
                             
                             <md-input-container class="inputBoxed marginTop20">
-                                <label>City</label>
-                                <input type="text" ng-model="addresses.city">
+                                <select ng-model="addresses.country">
+                                    <option ng-value="selected">Select Country</option>
+                                    <option ng-repeat="country in countries">{{country.name}}</option>
+                                </select>
                             </md-input-container>
                             
                             <md-input-container class="inputBoxed marginTop20">
-                                <label>State</label>
-                                <input type="text" ng-model="addresses.state">
+                                <select ng-model="addresses.state">
+                                    <option ng-value="selected">Select State</option>
+                                    <option ng-repeat="state in states">{{state.name}}</option>
+                                </select>
                             </md-input-container>
                             
                             <md-input-container class="inputBoxed marginTop20">
-                                <label>Country</label>
-                                <input type="text" ng-model="addresses.country">
+                                <select ng-model="addresses.city">
+                                    <option ng-value="selected">Select City</option>
+                                    <option ng-repeat="city in cities">{{city.name}}</option>
+                                </select>
+                            </md-input-container>
+                            
+                            <md-input-container class="inputBoxed marginTop20">
+                                <label>Landmark</label>
+                                <input type="text" ng-model="addresses.land_mark">
                             </md-input-container>
                             
                             <md-input-container class="inputBoxed marginTop20">
                                 <label>Zipcode</label>
-                                <input type="text" ng-model="addresses.zipcode">
+                                <input type="text" ng-model="addresses.pincode">
                             </md-input-container>
+                            
+                            <div class="layout-row marginTop20">
+                                <select ng-model="addresses.ph_country_code">
+                                    <option selected="selected" value="+91">+91</option>
+                                    <option value="+0065">+0065</option>
+                                </select>
+                                <md-input-container class="inputBoxed ">
+                                    <label>Phone number</label>
+                                    <input type="text" ng-model="addresses.phone_number">
+                                </md-input-container>
+                            </div>
+                            
                             <div class="clearfix"></div>
                             <br>
                             <md-button class=" margin0 md-primary cart_btn subscrbBtn">SUBMIT </md-button>

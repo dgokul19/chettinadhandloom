@@ -55,6 +55,12 @@ app.factory('cart_factory', function($http, $mdToast){
 				}
 			});
 		},
+		get_countries : function (){
+			return $http({
+				url : 'master/getCountries',
+				method : 'GET',
+			});
+		},
 		showToast : function(type, title, messages){     
 			$mdToast.show(
 				$mdToast.simple({

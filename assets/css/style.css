@@ -1069,6 +1069,12 @@ md-input-container.inputBoxed input{
 	border:none;
 	height: 38px;
 }
+md-input-container.inputBoxed select{
+	background: none;
+	border:none;
+	height: 38px;
+	width: 100%;
+}
 md-input-container.inputBoxed.disabled{
 	background: #f1f1f1;
 	border: 1px solid #ccc;
@@ -1813,7 +1819,7 @@ ul.pric_lis_li li div{
 }
 .addrss_list{
 	width: 85%;
-	min-height: 100px;
+	min-height: 135px;
 	height: 100px;
 	background-color: #f7f7f7;
 }

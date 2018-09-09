@@ -1,6 +1,17 @@
-app.controller('cartController', function($scope, $rootScope, accountFactory,cart_factory,userSession){
+app.controller('cartController', function($scope,$http,$rootScope, accountFactory,cart_factory,userSession){
     var userDetails = userSession.getUserSession();
     console.log(userDetails);
+
+    $scope.addresses = {};
+
+    var get_countries = function (){
+       cart_factory.get_countries().then(function(response){
+            console.log('$scope.get_countries', response);
+            if(response.data.status === 200){
+                $scope.get_countries = response;
+            }
+       });
+    }
 
     var load_cart_details = function (){
         $scope.loader = true;
@@ -10,18 +21,17 @@ app.controller('cartController', function($scope, $rootScope, accountFactory,car
             $scope.products =  products;
             $scope.loader = false;
         });
-    }
+    };
 
     var get_user_addresses = function (){
         var opts = {"user_id" : userDetails.userID};
         cart_factory.get_address_data(opts, function(err, addres_list){
             if (err) return console.log(err);
-            $scope.user_addresses = addres_list
+            $scope.user_addresses = addres_list;
         });
-    }
+    };
     
     $scope.removeItem = function (item){
-        console.log('item', item);
         var opts = {
             "user_id":userDetails.userID,
             "product_id":item.product_id,
@@ -31,10 +41,16 @@ app.controller('cartController', function($scope, $rootScope, accountFactory,car
             if (resp == null)
                 load_cart_details();
         });
-    }
+    };
+
+     var init = function (){
+        load_cart_details();
+        get_user_addresses();
+        get_countries();
+     };
 
     if(userDetails){
-        load_cart_details();
+        init();
     } else {
         location.href = "#/loomspace"
     }
