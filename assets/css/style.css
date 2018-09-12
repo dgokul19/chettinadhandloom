@@ -59,6 +59,9 @@ div,select,input,option,table,tr,td,i{
 .marginLeft10{
 	margin-left : 10px !important;
 }
+.paddingLeft10{
+	padding-left : 10px !important;
+}
 .marginLeft20{
 	margin-left : 20px !important;
 }
@@ -1830,9 +1833,10 @@ ul.pric_lis_li li div{
 }
 .addrss_list{
 	width: 85%;
-	min-height: 135px;
-	height: 135px;
+	min-height: 145px;
+	height: 145px;
 	background-color: #f7f7f7;
+	overflow: hidden
 }
 .addrss_list .icon_addr{
 	height:100%;
@@ -1841,6 +1845,9 @@ ul.pric_lis_li li div{
 .addrss_list .fa-map-marker{
 	color : #ccc;
 
+}
+.addrss_list.active_card .fa-map-marker{
+	color : rgb(60, 9, 102);
 }
 .addr_details p{
 	margin-bottom : 0px;

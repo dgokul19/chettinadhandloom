@@ -1,9 +1,12 @@
-app.controller('cartController', function($scope,$rootScope, accountFactory,cart_factory,userSession){
+app.controller('cartController', function($scope,$mdToast,$rootScope,$timeout,accountFactory,cart_factory,userSession){
     var userDetails = userSession.getUserSession();
     console.log(userDetails);
 
     $scope.addresses = {};
-    $scope.cart_summary = {};
+    $scope.cart_summary = {
+        "sub_total" : '0.00',
+        "shipping_amount" : '0.00'
+    };
     $scope.isValidForm = true;
 
     var get_countries = function (){
@@ -20,12 +23,9 @@ app.controller('cartController', function($scope,$rootScope, accountFactory,cart
     var calculate_summary = function (cart_lines){
         var total = 0.00;
         _.each(cart_lines, function(line){
-        console.log(line);
-
            total += parseInt(line.product_quantity) * parseFloat(line.product_price);
         });
-        console.log(total);
-        $scope.cart_summary.sub_total = total;
+        $scope.cart_summary.sub_total = total.toFixed(2);
     };
 
     var load_cart_details = function (){
@@ -44,6 +44,10 @@ app.controller('cartController', function($scope,$rootScope, accountFactory,cart
         cart_factory.get_address_data(opts, function(err, addres_list){
             if (err) return console.log(err);
             $scope.user_addresses = addres_list;
+            $scope.selected_addr = $scope.user_addresses[$scope.user_addresses.length - 1].item_id;
+            $scope.cart_summary.shipping_amount = parseFloat($scope.user_addresses[$scope.user_addresses.length - 1].shipping_cost).toFixed(2);
+
+            $scope.user_addresses[$scope.user_addresses.length - 1].sortByFilter = '1';
         });
     };
     
@@ -67,7 +71,6 @@ app.controller('cartController', function($scope,$rootScope, accountFactory,cart
     };
 
     $scope.updateLineQuantity = function (line){
-        console.log(line);
         if(line.product_quantity != ''){
             var opts = {
                 user_id : userDetails.userID,
@@ -77,8 +80,14 @@ app.controller('cartController', function($scope,$rootScope, accountFactory,cart
             cart_factory.update_line_qty(opts, function(err, data){
                 if(err) console.log(err);
                 load_cart_details();
+                showToast('Success', '', 'Quantity has been updated');
             });
         }
+    };
+
+    $scope.selected_address = function (obj){
+        $scope.selected_addr = obj.item_id;
+        $scope.cart_summary.shipping_amount = parseFloat(obj.shipping_cost).toFixed(2);
     };
 
     $scope.addresses = {
@@ -116,7 +125,6 @@ app.controller('cartController', function($scope,$rootScope, accountFactory,cart
             });
         },
         formSubmit : function (addresses) {
-            console.log('addresses=======', addresses);
             if (addresses.full_name == '' || addresses.address_line_1 == '' || addresses.address_line_2 == ''
                 ||( addresses.country == '' ||  addresses.country == '0') || (addresses.state == '' || addresses.state == '0') || (addresses.city == '' || addresses.city == '0') || addresses.pincode == '' || addresses.phone_number == ''){
                 $scope.isValidForm = false;
@@ -125,12 +133,25 @@ app.controller('cartController', function($scope,$rootScope, accountFactory,cart
                 addresses.user_id = userDetails.userID;
                 addresses.title = '',
                 cart_factory.save_addresses(addresses, function(data){
-                    $scope.active_card =  data.item_id;
+                    $scope.addresses = {};
+                    $scope.addressForm.$setPristine();
+                    $scope.show_new = false;
                     get_user_addresses();
                 });
             }
         }
     };
+
+    var showToast  =  function(type, title, messages){     
+        $mdToast.show(
+            $mdToast.simple({
+                hideDelay: 3000,
+                position: 'top right fit',
+                content: title + ' : ' + messages,
+                toastClass: type ? 'success' : 'error',
+            })
+        );
+    }		
 
      var init = function (){
         get_countries();
